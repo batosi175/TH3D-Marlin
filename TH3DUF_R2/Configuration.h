@@ -414,9 +414,10 @@
 // These are new motion control options for jerk and acceleration. They will give you faster print speeds
 // and lower noise of your machine. These are very new features so if you notice issues with prints try
 // disabling them below. These will be automatically disabled on 1284p Boards if Power Resume is enabled
-// as the 1284p does not have enough space for all these features.
-#define NEW_JERK_CONTROL
-#define NEW_ACCELERATION_CONTROL
+// as the 1284p does not have enough space for all these features. 
+// DOES NOT FIT ON 1284p with EZABL enabled currently - will add support later on for this in final release.
+//#define NEW_JERK_CONTROL
+//#define NEW_ACCELERATION_CONTROL
 
 // If you want to use manual mesh leveling you can enable the below option. TH3D does NOT provide free support
 // to help you use this feature. This is for generating a MANUAL mesh WITHOUT a probe. 
@@ -540,7 +541,7 @@
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "TH3D U1.R2.1.BETA"
-// LAST MODIFIED 072818 @ 2150 CST
+#define UNIFIED_VERSION "TH3D U1.R2.1.B2"
+// LAST MODIFIED 073018 @ 1512 CST
 
 #endif // CONFIGURATION_H

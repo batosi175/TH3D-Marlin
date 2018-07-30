@@ -1364,6 +1364,11 @@
   #define  DEFAULT_Kp 9.12
   #define  DEFAULT_Ki 0.41
   #define  DEFAULT_Kd 50.98
+#elif ENABLED(AR_EZ300)
+  // TH3D AR-EZ300 tuned @ 250C
+  #define DEFAULT_Kp 23.55
+  #define DEFAULT_Ki 1.82
+  #define DEFAULT_Kd 76.21
 #else  
   // Default Hotend PID
   #define  DEFAULT_Kp 22.2
