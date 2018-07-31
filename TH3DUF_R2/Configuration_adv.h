@@ -207,17 +207,9 @@
 // Use Junction Deviation instead of traditional Jerk Limiting
 //
 
-#if ENABLED(NEW_JERK_CONTROL)
-  #if DISABLED(SLIM_1284P)
-    #define JUNCTION_DEVIATION
-    #define JUNCTION_DEVIATION_MM 0.02
-  #elif ENABLED(SLIM_1284P) && DISABLED(POWER_LOSS_RECOVERY)
-    #define JUNCTION_DEVIATION
-    #define JUNCTION_DEVIATION_MM 0.02
-  #else
-    //#define JUNCTION_DEVIATION
-    //#define JUNCTION_DEVIATION_MM 0.02
-  #endif
+#if ENABLED(NEW_JERK_CONTROL) && DISABLED(POWER_LOSS_RECOVERY)
+  #define JUNCTION_DEVIATION
+  #define JUNCTION_DEVIATION_MM 0.02
 #endif
 
 /**

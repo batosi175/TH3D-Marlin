@@ -413,9 +413,7 @@
 
 // These are new motion control options for jerk and acceleration. They will give you faster print speeds
 // and lower noise of your machine. These are very new features so if you notice issues with prints try
-// disabling them below. These will be automatically disabled on 1284p Boards if Power Resume is enabled
-// as the 1284p does not have enough space for all these features. 
-// DOES NOT FIT ON 1284p with EZABL enabled currently - will add support later on for this in final release.
+// disabling them below. These will be automatically disabled if you enable the power loss recovery due to RAM limitations. 
 //#define NEW_JERK_CONTROL
 //#define NEW_ACCELERATION_CONTROL
 
@@ -429,7 +427,8 @@
 // Continue after Power-Loss feature will store the current state to the SD Card at the start of each layer
 // during SD printing. If the recovery file is found at boot time, present an option on the LCD screen to
 // continue the print from the last-known point in the file.
-// This will DISABLE Junction Deviation on 1284P Boards and S-Curve Acceleration due to limited space on these boards.
+// This will DISABLE Junction Deviation and S-Curve Acceleration due to RAM limitations. You can only use this with the older
+// jerk and acceleration features due to RAM limitations on the CPU.
 //
 // NOTE: This feature is UNSUPPORTED and causes excessive wear on your SD card. TH3D will NOT provide support for this
 // feature even if you are a customer and/or replace SD cards due to pre-mature failure. This is provided based on community demands.
