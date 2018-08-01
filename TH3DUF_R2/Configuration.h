@@ -540,7 +540,7 @@
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "TH3D U1.R2.1.B2"
-// LAST MODIFIED 073018 @ 1512 CST
+#define UNIFIED_VERSION "TH3D U1.R2.1.B3"
+// LAST MODIFIED 073118 @ 2327 CST Marlin 1.1.9 Update
 
 #endif // CONFIGURATION_H

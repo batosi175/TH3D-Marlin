@@ -3080,9 +3080,16 @@ static void homeaxis(const AxisEnum axis) {
   #if ENABLED(DEBUG_LEVELING_FEATURE)
     if (DEBUGGING(LEVELING)) SERIAL_ECHOLNPGM("Home 1 Fast:");
   #endif
-  do_homing_move(axis, 1.5f * max_length(axis) * axis_home_dir);
+
   #if HOMING_Z_WITH_PROBE && ENABLED(BLTOUCH)
-    // BLTOUCH needs to be stowed after trigger to let rearm itself
+    // BLTOUCH needs to be deployed every time
+    if (axis == Z_AXIS && set_bltouch_deployed(true)) return;
+  #endif
+
+  do_homing_move(axis, 1.5f * max_length(axis) * axis_home_dir);
+
+  #if HOMING_Z_WITH_PROBE && ENABLED(BLTOUCH)
+    // BLTOUCH needs to be stowed after trigger to rearm itself
     if (axis == Z_AXIS) set_bltouch_deployed(false);
   #endif
 
@@ -3112,16 +3119,17 @@ static void homeaxis(const AxisEnum axis) {
     #endif
 
     #if HOMING_Z_WITH_PROBE && ENABLED(BLTOUCH)
-      // BLTOUCH needs to deploy everytime
+      // BLTOUCH needs to be deployed every time
       if (axis == Z_AXIS && set_bltouch_deployed(true)) return;
     #endif
-    do_homing_move(axis, 2 * bump, get_homing_bump_feedrate(axis));
-  }
 
-  // Put away the Z probe
-  #if HOMING_Z_WITH_PROBE
-    if (axis == Z_AXIS && STOW_PROBE()) return;
-  #endif
+    do_homing_move(axis, 2 * bump, get_homing_bump_feedrate(axis));
+
+    #if HOMING_Z_WITH_PROBE && ENABLED(BLTOUCH)
+      // BLTOUCH needs to be stowed after trigger to rearm itself
+      if (axis == Z_AXIS) set_bltouch_deployed(false);
+    #endif
+  }
 
   /**
    * Home axes that have dual endstops... differently
@@ -3196,6 +3204,11 @@ static void homeaxis(const AxisEnum axis) {
       if (DEBUGGING(LEVELING)) DEBUG_POS("> AFTER set_axis_is_at_home", current_position);
     #endif
 
+  #endif
+
+  // Put away the Z probe
+  #if HOMING_Z_WITH_PROBE
+    if (axis == Z_AXIS && STOW_PROBE()) return;
   #endif
 
   // Clear retracted status if homing the Z axis
@@ -7638,8 +7651,8 @@ inline void gcode_M42() {
     const int8_t verbose_level = parser.byteval('V', 1);
     #if DISABLED(SLIM_1284P)
       if (!WITHIN(verbose_level, 0, 4)) {
-        SERIAL_PROTOCOLLNPGM("?(V)erbose level is implausible (0-4).");
-        return;
+      SERIAL_PROTOCOLLNPGM("?(V)erbose level is implausible (0-4).");
+      return;
       }
     #endif
 
@@ -7649,8 +7662,8 @@ inline void gcode_M42() {
     const int8_t n_samples = parser.byteval('P', 10);
     #if DISABLED(SLIM_1284P)
       if (!WITHIN(n_samples, 4, 50)) {
-        SERIAL_PROTOCOLLNPGM("?Sample size not plausible (4-50).");
-        return;
+      SERIAL_PROTOCOLLNPGM("?Sample size not plausible (4-50).");
+      return;
       }
     #endif
 
@@ -7670,7 +7683,7 @@ inline void gcode_M42() {
     bool seen_L = parser.seen('L');
     uint8_t n_legs = seen_L ? parser.value_byte() : 0;
     if (n_legs > 15) {
-      SERIAL_PROTOCOLLNPGM("?L Error (0-15).");
+      SERIAL_PROTOCOLLNPGM("?Number of legs in movement not plausible (0-15).");
       return;
     }
     if (n_legs == 1) n_legs = 2;
@@ -7717,7 +7730,7 @@ inline void gcode_M42() {
             #endif
           );
 
-          #if DISABLED(SLIM_1284P)
+          #if DISABLED(SLIM_1284P)          
             if (verbose_level > 3) {
               SERIAL_ECHOPAIR("Starting radius: ", radius);
               SERIAL_ECHOPAIR("   angle: ", angle);
@@ -7725,7 +7738,7 @@ inline void gcode_M42() {
               if (dir > 0) SERIAL_ECHOPGM("Counter-");
               SERIAL_ECHOLNPGM("Clockwise");
             }
-          #endif
+          #endif 
 
           for (uint8_t l = 0; l < n_legs - 1; l++) {
             float delta_angle;
