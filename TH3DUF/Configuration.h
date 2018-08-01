@@ -266,14 +266,6 @@
 //#define CUSTOM_PROBE
 
 //===========================================================================
-// Folgetech FT-5 Options - Select Arduino Mega 2560 from Tools > Board
-//===========================================================================
-//#define FT5
-
-// EZABL Probe Mounts
-//#define CUSTOM_PROBE
-
-//===========================================================================
 // EZABL Advanced Settings
 //===========================================================================
 
@@ -514,6 +506,6 @@
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "TH3D U1.R1.10"
+#define UNIFIED_VERSION "TH3D U1.R1.9b"
 
 #endif // CONFIGURATION_H
