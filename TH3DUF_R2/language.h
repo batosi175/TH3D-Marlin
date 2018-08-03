@@ -204,7 +204,7 @@
 
 #define MSG_STEPPER_TOO_HIGH                "Steprate too high: "
 #define MSG_ENDSTOPS_HIT                    "endstops hit: "
-#define MSG_ERR_COLD_EXTRUDE_STOP           " cold extrusion prevented"
+#define MSG_ERR_COLD_EXTRUDE_STOP           " HEAT HOTEND FIRST"
 #define MSG_ERR_LONG_EXTRUDE_STOP           " too long extrusion prevented"
 #define MSG_HOTEND_TOO_COLD                 "Hotend too cold"
 

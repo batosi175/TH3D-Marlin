@@ -185,7 +185,9 @@ uint16_t max_display_update_time = 0;
   #endif
 
   #if DISABLED(NO_VOLUMETRICS) || ENABLED(ADVANCED_PAUSE_FEATURE)
-    void lcd_control_filament_menu();
+    #if DISABLED(SLIM_LCD_MENUS)
+      void lcd_control_filament_menu();
+    #endif
   #endif
 
   #if ENABLED(LCD_INFO_MENU)
@@ -3335,7 +3337,9 @@ void lcd_quick_feedback(const bool clear_buttons) {
     MENU_ITEM(submenu, MSG_MOTION, lcd_control_motion_menu);
 
     #if DISABLED(NO_VOLUMETRICS) || ENABLED(ADVANCED_PAUSE_FEATURE)
-      MENU_ITEM(submenu, MSG_FILAMENT, lcd_control_filament_menu);
+      #if DISABLED(SLIM_LCD_MENUS)
+        MENU_ITEM(submenu, MSG_FILAMENT, lcd_control_filament_menu);
+      #endif
     #elif ENABLED(LIN_ADVANCE)
       MENU_ITEM_EDIT(float52, MSG_ADVANCE_K, &planner.extruder_advance_K, 0, 999);
     #endif
@@ -3551,9 +3555,14 @@ void lcd_quick_feedback(const bool clear_buttons) {
       #endif
 
       #if ENABLED(PID_AUTOTUNE_MENU)
-        #define PID_MENU_ITEMS(ELABEL, eindex) \
-          _PID_MENU_ITEMS(ELABEL, eindex); \
-          MENU_MULTIPLIER_ITEM_EDIT_CALLBACK(int3, MSG_PID_AUTOTUNE ELABEL, &autotune_temp[eindex], 150, heater_maxtemp[eindex] - 15, lcd_autotune_callback_E ## eindex)
+        #if DISABLED(SLIM_LCD_MENUS)
+          #define PID_MENU_ITEMS(ELABEL, eindex) \
+            _PID_MENU_ITEMS(ELABEL, eindex); \
+            MENU_MULTIPLIER_ITEM_EDIT_CALLBACK(int3, MSG_PID_AUTOTUNE ELABEL, &autotune_temp[eindex], 150, heater_maxtemp[eindex] - 15, lcd_autotune_callback_E ## eindex)
+          #else
+            #define PID_MENU_ITEMS(ELABEL, eindex) \
+              MENU_MULTIPLIER_ITEM_EDIT_CALLBACK(int3, MSG_PID_AUTOTUNE ELABEL, &autotune_temp[eindex], 150, heater_maxtemp[eindex] - 15, lcd_autotune_callback_E ## eindex)
+          #endif
       #else
         #define PID_MENU_ITEMS(ELABEL, eindex) _PID_MENU_ITEMS(ELABEL, eindex)
       #endif
@@ -4313,8 +4322,10 @@ void lcd_quick_feedback(const bool clear_buttons) {
       lcd_enqueue_command(cmd);
     }
     void _lcd_change_filament_temp_1_menu() { _change_filament_temp(1); }
-    void _lcd_change_filament_temp_2_menu() { _change_filament_temp(2); }
-
+    #if DISABLED(SLIM_LCD_MENUS)
+      void _lcd_change_filament_temp_2_menu() { _change_filament_temp(2); }
+    #endif
+    
     static const char* change_filament_header(const AdvancedPauseMode mode) {
       switch (mode) {
         case ADVANCED_PAUSE_MODE_LOAD_FILAMENT:
@@ -4333,7 +4344,9 @@ void lcd_quick_feedback(const bool clear_buttons) {
       if (LCD_HEIGHT >= 4) STATIC_ITEM_P(change_filament_header(mode), true, true);
       MENU_BACK(MSG_FILAMENTCHANGE);
       MENU_ITEM(submenu, MSG_PREHEAT_1, _lcd_change_filament_temp_1_menu);
-      MENU_ITEM(submenu, MSG_PREHEAT_2, _lcd_change_filament_temp_2_menu);
+      #if DISABLED(SLIM_LCD_MENUS)
+        MENU_ITEM(submenu, MSG_PREHEAT_2, _lcd_change_filament_temp_2_menu);
+      #endif
       END_MENU();
     }
     void lcd_temp_menu_e0_filament_change()  { _lcd_temp_menu_filament_op(ADVANCED_PAUSE_MODE_PAUSE_PRINT, 0); }

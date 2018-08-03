@@ -12476,7 +12476,9 @@ void process_parsed_command() {
           break;
       #endif
 
-      case 211: gcode_M211(); break;                              // M211: Enable/Disable/Report Software Endstops
+      #if DISABLED(SLIM_1284P)
+        case 211: gcode_M211(); break;                              // M211: Enable/Disable/Report Software Endstops
+      #endif
 
       #if HOTENDS > 1
         case 218: gcode_M218(); break;                            // M218: Set Tool Offset
@@ -12515,7 +12517,7 @@ void process_parsed_command() {
         case 301: gcode_M301(); break;                            // M301: Set Hotend PID parameters
       #endif
 
-      #if ENABLED(PREVENT_COLD_EXTRUSION)
+      #if ENABLED(PREVENT_COLD_EXTRUSION) && DISABLED(SLIM_1284P)
         case 302: gcode_M302(); break;                            // M302: Set Minimum Extrusion Temp
       #endif
 
@@ -12531,7 +12533,7 @@ void process_parsed_command() {
       #endif
 
       case 355: gcode_M355(); break;                              // M355: Set Case Light brightness
-
+        
       #if ENABLED(MORGAN_SCARA)
         case 360: if (gcode_M360()) return; break;                // M360: SCARA Theta pos1
         case 361: if (gcode_M361()) return; break;                // M361: SCARA Theta pos2
@@ -12561,7 +12563,9 @@ void process_parsed_command() {
       #endif
 
       #if HAS_MESH
-        case 421: gcode_M421(); break;                            // M421: Set a Mesh Z value
+        #if DISABLED(SLIM_1284P)
+          case 421: gcode_M421(); break;                            // M421: Set a Mesh Z value
+        #endif
       #endif
 
       case 500: gcode_M500(); break;                              // M500: Store Settings in EEPROM
@@ -12580,7 +12584,9 @@ void process_parsed_command() {
 
       #if ENABLED(ADVANCED_PAUSE_FEATURE)
         case 600: gcode_M600(); break;                            // M600: Pause for Filament Change
-        case 603: gcode_M603(); break;                            // M603: Configure Filament Change
+        #if DISABLED(SLIM_1284P)
+         case 603: gcode_M603(); break;                            // M603: Configure Filament Change
+        #endif
       #endif
 
       #if ENABLED(DUAL_X_CARRIAGE) || ENABLED(DUAL_NOZZLE_DUPLICATION_MODE)

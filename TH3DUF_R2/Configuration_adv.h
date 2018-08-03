@@ -350,7 +350,7 @@
   #define DOUBLECLICK_FOR_Z_BABYSTEPPING // Double-click on the Status Screen for Z Babystepping.
   #define DOUBLECLICK_MAX_INTERVAL 2000 // Maximum interval between clicks, in milliseconds.
   
-  #if ENABLED(BABYSTEP_OFFSET) && DISABLED(SLIM_1284P)
+  #if ENABLED(BABYSTEP_OFFSET) && DISABLED(LCD2004)
     #define BABYSTEP_ZPROBE_GFX_OVERLAY // Enable graphical overlay on Z-offset editor
   #endif
 #endif

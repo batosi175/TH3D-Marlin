@@ -298,7 +298,7 @@
 // If you want more or less EZABL probe points change the number below (only used if EZABL enabled)
 // Default is 4 which gives you 4x4 grid. Do not go over 10 here.
 // Ender 2 will be best with a 3x3 grid, change to a 3 for Ender 2
-#define EZABL_POINTS 4
+#define EZABL_POINTS 3
 
 // If you want to probe in on the bed more than 15mm change this below. 
 // Do not use 30mm for the Standard CR-10/s or the S4 as you will be on the bed screws.
@@ -327,6 +327,34 @@
 // This will extrapolate the implied tilt of the bed outside of the probe area
 // By default this should be ENABLED. Do not comment out unless directed by support.
 #define EZABL_OUTSIDE_GRID_COMPENSATION
+
+//===========================================================================
+// IF YOU HAVE A CUSTOM PROBE MOUNT OR ONE THAT IS NOT PRE-SUPPORTED UNCOMMENT THE
+// CUSTOM_PROBE OPTION IN YOUR PRINTER SECTION AND ENTER YOUR PROBE LOCATION BELOW
+//===========================================================================
+#if ENABLED(CUSTOM_PROBE)
+  /**
+  *   Z Probe to nozzle (X,Y) offset, relative to (0, 0).
+  *   X and Y offsets must be integers.
+  *
+  *   In the following example the X and Y offsets are both positive:
+  *   #define X_PROBE_OFFSET_FROM_EXTRUDER 10
+  *   #define Y_PROBE_OFFSET_FROM_EXTRUDER 10
+  *
+  *      +-- BACK ---+
+  *      |           |
+  *    L |    (+) P  | R <-- probe (10,10)
+  *    E |           | I
+  *    F | (-) N (+) | G <-- nozzle (0,0)
+  *    T |           | H
+  *      |    (-)    | T
+  *      |           |
+  *      O-- FRONT --+
+  *    (0,0)
+  */
+  #define X_PROBE_OFFSET_FROM_EXTRUDER 10  // X offset: -left  +right  [of the nozzle]
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER 10  // Y offset: -front +behind [the nozzle]
+#endif
 
 //===========================================================================
 // TH3D EXTRAS
@@ -399,17 +427,17 @@
 // to properly control the fan speed. If this is not enabled then the fan may not spin and/or make noise at low speeds.
 //#define FAN_KICKSTART
 
-// Use TinyMachines Bootscreen instead of TH3D
+// Use TinyMachines Bootscreen instead of TH3D - Bootscreens are disabled on 1284p boards due to space limitations
 //#define TM3D_BOOT
 
-// Use Ender Bootscreeen instead of TH3D
+// Use Ender Bootscreeen instead of TH3D - Bootscreens are disabled on 1284p boards due to space limitations
 //#define ENDER_BOOT
 
 // Disable Bootscreen completely
 //#define DISABLE_BOOT
 
 // Use your own printer name
-//#define USER_PRINTER_NAME "Change Me" 
+//#define USER_PRINTER_NAME "CHANGE ME" 
 
 // These are new motion control options for jerk and acceleration. They will give you faster print speeds
 // and lower noise of your machine. These are very new features so if you notice issues with prints try
@@ -434,34 +462,6 @@
 // feature even if you are a customer and/or replace SD cards due to pre-mature failure. This is provided based on community demands.
 // !!!USE AT YOUR OWN RISK!!!
 //#define POWER_LOSS_RECOVERY
-
-//===========================================================================
-// IF YOU HAVE A CUSTOM PROBE MOUNT OR ONE THAT IS NOT PRE-SUPPORTED UNCOMMENT THE
-// CUSTOM_PROBE OPTION IN YOUR PRINTER SECTION AND ENTER YOUR PROBE LOCATION BELOW
-//===========================================================================
-#if ENABLED(CUSTOM_PROBE)
-  /**
-  *   Z Probe to nozzle (X,Y) offset, relative to (0, 0).
-  *   X and Y offsets must be integers.
-  *
-  *   In the following example the X and Y offsets are both positive:
-  *   #define X_PROBE_OFFSET_FROM_EXTRUDER 10
-  *   #define Y_PROBE_OFFSET_FROM_EXTRUDER 10
-  *
-  *      +-- BACK ---+
-  *      |           |
-  *    L |    (+) P  | R <-- probe (10,10)
-  *    E |           | I
-  *    F | (-) N (+) | G <-- nozzle (0,0)
-  *    T |           | H
-  *      |    (-)    | T
-  *      |           |
-  *      O-- FRONT --+
-  *    (0,0)
-  */
-  #define X_PROBE_OFFSET_FROM_EXTRUDER 10  // X offset: -left  +right  [of the nozzle]
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER 10  // Y offset: -front +behind [the nozzle]
-#endif
 
 //===========================================================================
 // Language - This is provided for convenience and is unsupported with included product support.
@@ -540,7 +540,7 @@
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "TH3D U1.R2.1.B3"
-// LAST MODIFIED 073118 @ 2327 CST Marlin 1.1.9 Update
+#define UNIFIED_VERSION "TH3D U1.R2.1.B4"
+// LAST MODIFIED 080318 @ 0259 CST Marlin 1.1.9 Base
 
 #endif // CONFIGURATION_H
