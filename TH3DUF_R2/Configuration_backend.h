@@ -6,7 +6,7 @@
 //==================== DO NOT MODIFY BELOW THIS LINE ========================
 //===========================================================================
 
-//needs tuning
+//needs tuning?
 
 /**
  * Specify Stepper Driver types
@@ -543,9 +543,15 @@
     #define INVERT_E0_DIR true
   #endif
 
-  #define ST7920_DELAY_1 DELAY_2_NOP
-  #define ST7920_DELAY_2 DELAY_2_NOP
-  #define ST7920_DELAY_3 DELAY_2_NOP
+  #ifndef ST7920_DELAY_1
+    #define ST7920_DELAY_1 DELAY_NS(200)
+  #endif
+  #ifndef ST7920_DELAY_2
+    #define ST7920_DELAY_2 DELAY_NS(200)
+  #endif
+  #ifndef ST7920_DELAY_3
+    #define ST7920_DELAY_3 DELAY_NS(200)
+  #endif
 
   #define LCD_FOR_MELZI
 #endif
@@ -1049,9 +1055,7 @@
     #define LCD2004
   #endif
   #if ENABLED(ANET_LCD12864)
-   #define ANET_FULL_GRAPHICS_LCD
-    #define LCD_SET_PROGRESS_MANUALLY
-    #define PRINTJOB_TIMER_AUTOSTART
+    #define ANET_FULL_GRAPHICS_LCD
   #endif
 
   #define Z_MIN_POS 0
@@ -1250,23 +1254,24 @@
 
 #if ENABLED(SLIM_1284P)
   #define SLIM_LCD_MENUS
-  #define DISABLE_BOOT
+  #if ENABLED(LINEAR_ADVANCE)
+    #define DISABLE_BOOT
+  #endif
 #endif
 
 #define STRING_CONFIG_H_AUTHOR "(TH3D)"
 #if (ENABLED(SKEW_CORRECTION) && ENABLED(EZABL_ENABLE) && ENABLED(SLIM_1284P)) || (ENABLED(MANUAL_MESH_LEVELING) && ENABLED(SLIM_1284P))
   //#define SHOW_BOOTSCREEN
 #else
-  #if DISABLED(ANET_LCD2004)
+  #if DISABLED(LCD2004)
     #if DISABLED(DISABLE_BOOT)
       #define SHOW_BOOTSCREEN
+      #define SHOW_CUSTOM_BOOTSCREEN
     #endif
   #endif
 #endif
 #define STRING_SPLASH_LINE1 SHORT_BUILD_VERSION
 #define STRING_SPLASH_LINE2 WEBSITE_URL
-
-#define SHOW_CUSTOM_BOOTSCREEN
 
 #define SERIAL_PORT 0
 
@@ -1329,12 +1334,12 @@
  #endif
 #endif
 
-#define TEMP_RESIDENCY_TIME 10  
+#define TEMP_RESIDENCY_TIME 5  
 #define TEMP_HYSTERESIS 3      
 #define TEMP_WINDOW     1      
 
-#define TEMP_BED_RESIDENCY_TIME 10 
-#define TEMP_BED_HYSTERESIS 3     
+#define TEMP_BED_RESIDENCY_TIME 5 
+#define TEMP_BED_HYSTERESIS 3
 #define TEMP_BED_WINDOW     1     
 
 #define HEATER_0_MINTEMP 5
@@ -1443,7 +1448,15 @@
   #define Z_CLEARANCE_BETWEEN_PROBES  3 
   #define Z_PROBE_OFFSET_RANGE_MIN -10
   #define Z_PROBE_OFFSET_RANGE_MAX 10
-  #define Z_MIN_PROBE_REPEATABILITY_TEST
+  
+  #if ENABLED(SLIM_1284P) && ENABLED(LINEAR_ADVANCE) && ENABLED(NEW_ACCELERATION_CONTROL)
+    //no M48 test
+  #elif ENABLED(SLIM_1284P) && ENABLED(LINEAR_ADVANCE) && ENABLED(NEW_JERK_CONTROL)
+    //no M48 test
+  #else
+    #define Z_MIN_PROBE_REPEATABILITY_TEST    
+  #endif
+  
   #define Z_AFTER_PROBING           5
   #define Z_PROBE_LOW_POINT          -2
 #endif  

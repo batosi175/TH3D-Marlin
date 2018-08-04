@@ -298,7 +298,7 @@
 // If you want more or less EZABL probe points change the number below (only used if EZABL enabled)
 // Default is 4 which gives you 4x4 grid. Do not go over 10 here.
 // Ender 2 will be best with a 3x3 grid, change to a 3 for Ender 2
-#define EZABL_POINTS 3
+#define EZABL_POINTS 4
 
 // If you want to probe in on the bed more than 15mm change this below. 
 // Do not use 30mm for the Standard CR-10/s or the S4 as you will be on the bed screws.
@@ -376,6 +376,20 @@
 // If your titan uses steps/mm other than 463 change it below, this works for most Titans (not used if titan is disabled).
 #define TITAN_EXTRUDER_STEPS 463
 
+// Linear Advance Pressure Control - This is provided for convenience and is unsupported with included product support.
+// Set LINEAR_ADVANCE_K around 0.22 for 3mm PLA Direct Drive with ~6.5cm between the drive gear and heatbreak.
+// Larger LINEAR_ADVANCE_K values will be needed for flexible filament and greater distances.
+// If this algorithm produces a higher speed offset than the extruder can handle (compared to E jerk)
+// print acceleration will be reduced during the affected moves to keep within the limit.
+// See http://marlinfw.org/docs/features/lin_advance.html for full instructions.
+//
+// NOTE - IF USED ON A 1284P BOARD WITH NEW ACCEL AND/OR JERK THIS WILL DISABLE M48 PROBE TEST. IF YOU WANT TO USE THIS ON
+// A 1284P BOARD WITH EZABL YOU WILL NEED TO DISABLE THIS TO RUN THE PROBE TEST AND REUPLOAD TO THE PRINTER.
+//#define LINEAR_ADVANCE
+
+// Change the K Value here - not used if Linear Advance is disabled
+#define LINEAR_ADVANCE_K 0.22
+
 // HOTEND SETTINGS ----------------------------
 
 // This is the distance between each nozzle tip when using a dual hotend like the
@@ -416,7 +430,7 @@
 // If you need to adjust your XY home offsets from defaults then you can uncomment the HOME_ADJUST line below and enter your
 // custom XY offsets. This is provided for convenience and is unsupported with included product support.
 // How to use - measure (home XY then jog using the LCD 1mm at a time) the X and Y distance the nozzle is off
-// the build plate and then put those as negative values below.
+// the build plate and then put those as NEGATIVE values below, positive values will NOT work (move your endstops to fix a positve offset).
 //#define HOME_ADJUST
 #define X_HOME_LOCATION -10
 #define Y_HOME_LOCATION -10
@@ -426,15 +440,6 @@
 // If you are using the TH3D 5015 High Flow Layer Fan enable this to allow the firmware
 // to properly control the fan speed. If this is not enabled then the fan may not spin and/or make noise at low speeds.
 //#define FAN_KICKSTART
-
-// Use TinyMachines Bootscreen instead of TH3D - Bootscreens are disabled on 1284p boards due to space limitations
-//#define TM3D_BOOT
-
-// Use Ender Bootscreeen instead of TH3D - Bootscreens are disabled on 1284p boards due to space limitations
-//#define ENDER_BOOT
-
-// Disable Bootscreen completely
-//#define DISABLE_BOOT
 
 // Use your own printer name
 //#define USER_PRINTER_NAME "CHANGE ME" 
@@ -463,9 +468,21 @@
 // !!!USE AT YOUR OWN RISK!!!
 //#define POWER_LOSS_RECOVERY
 
-//===========================================================================
+// BOOT SCREEN OPTIONS -------------------------
+
+// Use TinyMachines Bootscreen instead of TH3D
+//#define TM3D_BOOT
+
+// Use Ender Bootscreeen instead of TH3D
+//#define ENDER_BOOT
+
+// Disable Bootscreen completely
+//#define DISABLE_BOOT
+
+//================================================================================================
 // Language - This is provided for convenience and is unsupported with included product support.
-//===========================================================================
+// We only test compile with English language. If you run into space issues disable some features.
+//================================================================================================
 
 /**
  * LCD LANGUAGE
@@ -477,70 +494,11 @@
  *    tr, uk, zh_CN, zh_TW, test
  */
 
- #define LCD_LANGUAGE en
-
-//===========================================================================
-// Bed Skew Setup - This is provided for convenience and is unsupported with included product support.
-//===========================================================================
-  
-/**
- * Bed Skew Compensation
- *
- * This feature corrects for misalignment in the XYZ axes.
- *
- * Take the following steps to get the bed skew in the XY plane:
- *  1. Print a test square (e.g., https://www.thingiverse.com/thing:2563185)
- *  2. For XY_DIAG_AC measure the diagonal A to C
- *  3. For XY_DIAG_BD measure the diagonal B to D
- *  4. For XY_SIDE_AD measure the edge A to D
- *
- * Marlin automatically computes skew factors from these measurements.
- * Skew factors may also be computed and set manually:
- *
- *  - Compute AB     : SQRT(2*AC*AC+2*BD*BD-4*AD*AD)/2
- *  - XY_SKEW_FACTOR : TAN(PI/2-ACOS((AC*AC-AB*AB-AD*AD)/(2*AB*AD)))
- *
- * If desired, follow the same procedure for XZ and YZ.
- * Use these diagrams for reference:
- *
- *    Y                     Z                     Z
- *    ^     B-------C       ^     B-------C       ^     B-------C
- *    |    /       /        |    /       /        |    /       /
- *    |   /       /         |   /       /         |   /       /
- *    |  A-------D          |  A-------D          |  A-------D
- *    +-------------->X     +-------------->X     +-------------->Y
- *     XY_SKEW_FACTOR        XZ_SKEW_FACTOR        YZ_SKEW_FACTOR
- */
-//#define SKEW_CORRECTION
-
-#if ENABLED(SKEW_CORRECTION)
-  // Input all length measurements here:
-  #define XY_DIAG_AC 282.8427124746
-  #define XY_DIAG_BD 282.8427124746
-  #define XY_SIDE_AD 200
-
-  // Or, set the default skew factors directly here
-  // to override the above measurements:
-  //#define XY_SKEW_FACTOR 0.0
-
-  //#define SKEW_CORRECTION_FOR_Z
-  #if ENABLED(SKEW_CORRECTION_FOR_Z)
-    #define XZ_DIAG_AC 282.8427124746
-    #define XZ_DIAG_BD 282.8427124746
-    #define YZ_DIAG_AC 282.8427124746
-    #define YZ_DIAG_BD 282.8427124746
-    #define YZ_SIDE_AD 200
-    #define XZ_SKEW_FACTOR 0.0
-    #define YZ_SKEW_FACTOR 0.0
-  #endif
-
-  // Enable this option for M852 to set skew at runtime
-  #define SKEW_CORRECTION_GCODE
-#endif
+#define LCD_LANGUAGE en
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "TH3D U1.R2.1.B4"
-// LAST MODIFIED 080318 @ 0259 CST Marlin 1.1.9 Base
+#define UNIFIED_VERSION "TH3D U1.R2.1.B5"
+// LAST MODIFIED 080318 @ 2307 CST Marlin 1.1.9 Base
 
 #endif // CONFIGURATION_H

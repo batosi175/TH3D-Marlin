@@ -123,8 +123,6 @@
     #define CASE_LIGHT_DEFAULT_BRIGHTNESS 255   // Set default power-up brightness (0-255, requires PWM pin)
     #define MENU_ITEM_CASE_LIGHT              // Add a Case Light option to the LCD main menu
   #endif
-  
-  #define AXIS_RELATIVE_MODES {false, false, false, false}
 
   #define MOTOR_CURRENT_PWM_RANGE 2782
   #define PWM_MOTOR_CURRENT { 1200, 1200, 1000 }
@@ -193,10 +191,11 @@
 // @section extras
 
 // minimum time in microseconds that a movement needs to take if the buffer is emptied.
-#define DEFAULT_MINSEGMENTTIME        20000
+#define DEFAULT_MINSEGMENTTIME        50000
+//#define DEFAULT_MINSEGMENTTIME        20000 //old value
 
 // If defined the movements slow down when the look ahead buffer is only half full
-#define SLOWDOWN
+//#define SLOWDOWN - testing issues with slowing of the planner on small segments
 
 // Minimum planner junction speed. Sets the default minimum speed the planner plans for at the end
 // of the buffer and all stops. This should not be much greater than zero and should only be changed
@@ -231,23 +230,9 @@
 #define ENCODER_10X_STEPS_PER_SEC 75    // If the encoder steps per sec exceeds this value, multiply steps moved x10 to quickly advance the value
 #define ENCODER_100X_STEPS_PER_SEC 160  // If the encoder steps per sec exceeds this value, multiply steps moved x100 to really quickly advance the value
 
-//#define CHDK 4        //Pin for triggering CHDK to take a picture see how to use it here http://captain-slow.dk/2014/03/09/3d-printing-timelapses/
-#define CHDK_DELAY 50 //How long in ms the pin should stay HIGH before going LOW again
-
-// @section lcd
-
-// Include a page of printer information in the LCD Main Menu
 #if DISABLED(SLIM_1284P)
 	#define LCD_INFO_MENU
-#endif
-
-// Scroll a longer status message into view
-#if DISABLED(SLIM_1284P)
 	#define STATUS_MESSAGE_SCROLLING
-#endif
-	
-// On the Info Screen, display XY with one decimal place when possible
-#if DISABLED(SLIM_1284P)
 	#define LCD_DECIMAL_SMALL_XY
 #endif
 
@@ -313,24 +298,6 @@
   // Enable to save many cycles by drawing a hollow frame on Menu Screens
   #define MENU_HOLLOW_FRAME
 
-  #if ENABLED(U8GLIB_ST7920)
-    /**
-     * ST7920-based LCDs can emulate a 16 x 4 character display using
-     * the ST7920 character-generator for very fast screen updates.
-     * Enable LIGHTWEIGHT_UI to use this special display mode.
-     *
-     * Since LIGHTWEIGHT_UI has limited space, the position and status
-     * message occupy the same line. Set STATUS_EXPIRE_SECONDS to the
-     * length of time to display the status message before clearing.
-     *
-     * Set STATUS_EXPIRE_SECONDS to zero to never clear the status.
-     * This will prevent position updates from being displayed.
-     */
-    //#define LIGHTWEIGHT_UI
-    #if ENABLED(LIGHTWEIGHT_UI)
-      #define STATUS_EXPIRE_SECONDS 20
-    #endif
-  #endif
 #endif // DOGLCD
 
 #define USE_WATCHDOG
@@ -339,13 +306,10 @@
 
 #define BABYSTEPPING
 #if ENABLED(BABYSTEPPING)
-  //#define BABYSTEP_XY              // Also enable X/Y Babystepping. Not supported on DELTA!
   #define BABYSTEP_INVERT_Z false    // Change if Z babysteps should go the other way
   #define BABYSTEP_MULTIPLICATOR 10   // Babysteps are very small. Increase for faster motion.
   #if ENABLED(BABYSTEP_OFFSET)
     #define BABYSTEP_ZPROBE_OFFSET   // Enable to combine M851 and Babystepping
-  #else
-	//#define BABYSTEP_ZPROBE_OFFSET   // Enable to combine M851 and Babystepping
   #endif
   #define DOUBLECLICK_FOR_Z_BABYSTEPPING // Double-click on the Status Screen for Z Babystepping.
   #define DOUBLECLICK_MAX_INTERVAL 2000 // Maximum interval between clicks, in milliseconds.
@@ -357,25 +321,11 @@
 
 // @section extruder
 
-/**
- * Linear Pressure Control v1.5
- *
- * Assumption: advance [steps] = k * (delta velocity [steps/s])
- * K=0 means advance disabled.
- *
- * NOTE: K values for LIN_ADVANCE 1.5 differ from earlier versions!
- *
- * Set K around 0.22 for 3mm PLA Direct Drive with ~6.5cm between the drive gear and heatbreak.
- * Larger K values will be needed for flexible filament and greater distances.
- * If this algorithm produces a higher speed offset than the extruder can handle (compared to E jerk)
- * print acceleration will be reduced during the affected moves to keep within the limit.
- *
- * See http://marlinfw.org/docs/features/lin_advance.html for full instructions.
- * Mention @Sebastianv650 on GitHub to alert the author of any issues.
- */
-//#define LIN_ADVANCE
+#if ENABLED(LINEAR_ADVANCE)
+  #define LIN_ADVANCE
+#endif
 #if ENABLED(LIN_ADVANCE)
-  #define LIN_ADVANCE_K 0.22  // Unit: mm compression per 1mm/s extruder speed
+  #define LIN_ADVANCE_K LINEAR_ADVANCE_K  // Unit: mm compression per 1mm/s extruder speed
   //#define LA_DEBUG          // If enabled, this will generate debug information output over USB.
 #endif
 
@@ -448,11 +398,6 @@
  */
 //#define MAXIMUM_STEPPER_RATE 250000
 
-// @section temperature
-
-// Control heater 0 and heater 1 in parallel.
-//#define HEATERS_PARALLEL
-
 //===========================================================================
 //================================= Buffers =================================
 //===========================================================================
@@ -505,10 +450,10 @@
 
                                                   // Filament Unload does a Retract, Delay, and Purge first:
   #define FILAMENT_UNLOAD_RETRACT_LENGTH      13  // (mm) Unload initial retract length.
-  #define FILAMENT_UNLOAD_DELAY             5000  // (ms) Delay for the filament to cool after retract.
+  #define FILAMENT_UNLOAD_DELAY             2000  // (ms) Delay for the filament to cool after retract.
   #define FILAMENT_UNLOAD_PURGE_LENGTH         8  // (mm) An unretract is done, then this length is purged.
 
-  #define PAUSE_PARK_NOZZLE_TIMEOUT           45  // (seconds) Time limit before the nozzle is turned off for safety.
+  #define PAUSE_PARK_NOZZLE_TIMEOUT           60  // (seconds) Time limit before the nozzle is turned off for safety.
   #define FILAMENT_CHANGE_ALERT_BEEPS         10  // Number of alert beeps to play when a response is needed.
   #define PAUSE_PARK_NO_STEPPER_TIMEOUT           // Enable for XYZ steppers to stay powered on during filament change.
 
@@ -519,8 +464,6 @@
   //#define FILAMENT_UNLOAD_ALL_EXTRUDERS         // Allow M702 to unload all extruders above a minimum target temp (as set by M302)
 #endif
 
-//#define PINS_DEBUGGING
-
 #define AUTO_REPORT_TEMPERATURES
 
 #if DISABLED(SLIM_1284P)
@@ -528,8 +471,6 @@
 #endif
 
 #define NO_VOLUMETRICS
-
-//#define NO_WORKSPACE_OFFSETS
 
 #define PROPORTIONAL_FONT_RATIO 1.0
 
