@@ -1624,7 +1624,7 @@
   #define SPEAKER
 #endif
 
-#if ENABLED(FAN_KICKSTART)
+#if ENABLED(FAN_FIX)
   #define FAN_SOFT_PWM
   #define SOFT_PWM_SCALE 1
 #else
