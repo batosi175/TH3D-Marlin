@@ -405,7 +405,7 @@
 // Disable Bootscreen completely
 //#define DISABLE_BOOT
 
-// UNSUPPORTED FEATURES ----------------------------
+// ADVANCED FEATURES (NOT SUPPORTED BY TH3D)  ------
 
 // If you want to use manual mesh leveling you can enable the below option. TH3D does NOT provide free support
 // to help you use this feature. This is for generating a MANUAL mesh WITHOUT a probe. 
@@ -439,8 +439,8 @@
 // NOTE - If used on 1284p Boards w/ new accel and/or jerk this will disable M48 Probe test so fit on the board. If you need to test your EZABL disable LINEAR_ADVANCE and re-upload firmware to the printer.
 // Uncomment the below line to enable Linear Advance Pressure Control.
 //#define LINEAR_ADVANCE
-// Change the K Value here.
-#define LINEAR_ADVANCE_K 0.22
+// Change the K Value here or use M900 KX.XX in your starting code (recommended).
+#define LINEAR_ADVANCE_K 0
 
 // These are new motion control options for jerk and acceleration.
 // These are very new features so if you notice issues disable them. 
@@ -466,7 +466,7 @@
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "U1.R2.1.B7"
-// LAST MODIFIED 080318 @ 2339 CST Marlin 1.1.9 Base
+#define UNIFIED_VERSION "U1.R2.T1"
+// LAST MODIFIED 080418 @ 0200 CST Marlin 1.1.9 Base
 
 #endif // CONFIGURATION_H
