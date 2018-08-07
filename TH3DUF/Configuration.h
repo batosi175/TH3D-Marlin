@@ -318,9 +318,6 @@
 // Control > Store Settings if you want to save the changes made with the Z Offset/Babystepping combined option.
 //#define BABYSTEP_OFFSET
 
-// Allow bed to pause probing to recover heat during probing - only use if directed to by support.
-//#define HEATER_RECOVERY
-
 // If you want to keep your heaters ON during probing uncomment the below line - only use if directed to by support. We do NOT recommend doing this on AC beds.
 //#define HEATERS_ON_DURING_PROBING
 
@@ -470,6 +467,6 @@
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "TH3D U1.R1.10.B3"
+#define UNIFIED_VERSION "U1.R1.10.T1"
 
 #endif // CONFIGURATION_H
