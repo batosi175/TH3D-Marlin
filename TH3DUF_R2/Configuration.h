@@ -310,6 +310,9 @@
 // Control > Store Settings if you want to save the changes made with the Z Offset/Babystepping combined option.
 //#define BABYSTEP_OFFSET
 
+// This will disable the XYE motors during probing. Can be useful if you have stepper motors causing issues with the EZABL sensor
+//#define PROBING_MOTORS_OFF
+
 // Heaters will stay on during probing - only use if directed to by support. Do not use on AC beds.
 //#define HEATERS_ON_DURING_PROBING
 
@@ -466,7 +469,7 @@
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "U1.R2.T1"
-// LAST MODIFIED 080418 @ 0200 CST Marlin 1.1.9 Base
+#define UNIFIED_VERSION "U1.R2.T2"
+// LAST MODIFIED 080518 @ 1940 CST Marlin 1.1.9 Base
 
 #endif // CONFIGURATION_H
