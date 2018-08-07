@@ -467,6 +467,6 @@
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "U1.R1.10.T1"
+#define UNIFIED_VERSION "TH3D U1.R1.10"
 
 #endif // CONFIGURATION_H
