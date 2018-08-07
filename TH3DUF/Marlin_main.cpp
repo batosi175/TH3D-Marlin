@@ -2007,6 +2007,11 @@ static void clean_up_after_endstop_or_probe_move() {
       #if ENABLED(PROBING_HEATERS_OFF)
         thermalManager.pause(p);
       #endif
+      #if ENABLED(PROBING_MOTORS_OFF)
+        disable_e_steppers();
+        disable_Y();
+        disable_X();
+      #endif
       #if ENABLED(PROBING_FANS_OFF)
         fans_pause(p);
       #endif

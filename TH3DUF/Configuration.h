@@ -40,17 +40,19 @@
 //============================ TH3D Configuration ===========================
 //===========================================================================
 
+#define PROBING_MOTORS_OFF
+
 // ONLY UNCOMMENT THINGS IN ONE PRINTER SECTION!!! IF YOU DO NOT FOLLOW THIS THEN YOU WILL GET ERRORS.
 
 //===========================================================================
 // TH3D Artillery Options - Select Arduino Mega 2560 from Tools > Board
 //===========================================================================
-//#define AR_EZ300
+#define AR_EZ300
 
 // EZABL Probe Mounts
 //#define CR10_VOLCANO
 //#define CR10_V6HEAVYDUTY
-//#define CR10_OEM
+#define CR10_OEM
 //#define CR10_FANG
 //#define TM3DAERO
 //#define TM3DAERO_EXTENDED
