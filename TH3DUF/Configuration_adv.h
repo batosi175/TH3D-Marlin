@@ -125,12 +125,7 @@
   #endif
   
   #define AXIS_RELATIVE_MODES {false, false, false, false}
-  
-  #if ENABLED(ULTIPANEL)
-    #define MANUAL_FEEDRATE {70*60, 70*60, 15*60, 6*60} // Feedrates for manual moves along X, Y, Z, E from panel
-    #define ULTIPANEL_FEEDMULTIPLY  // Comment to disable setting feedrate multiplier via encoder
-  #endif
-  
+
   #define MOTOR_CURRENT_PWM_RANGE 2782
   #define PWM_MOTOR_CURRENT { 1200, 1200, 1000 }
   #define DIGIPOT_I2C_NUM_CHANNELS 8 
@@ -191,14 +186,18 @@
 #define DEFAULT_MINTRAVELFEEDRATE     0.0
 
 #if ENABLED(ULTIPANEL)
-  #define MANUAL_FEEDRATE {50*60, 50*60, 4*60, 60} // Feedrates for manual moves along X, Y, Z, E from panel
+  #define MANUAL_FEEDRATE {70*60, 70*60, 4*60, 60} // Feedrates for manual moves along X, Y, Z, E from panel
   #define ULTIPANEL_FEEDMULTIPLY  // Comment to disable setting feedrate multiplier via encoder
 #endif
 
 // @section extras
 
 // minimum time in microseconds that a movement needs to take if the buffer is emptied.
-#define DEFAULT_MINSEGMENTTIME        20000
+#if ENABLED(USB_PRINT_FIX)
+  #define DEFAULT_MINSEGMENTTIME        50000
+#else
+  #define DEFAULT_MINSEGMENTTIME        20000
+#endif
 
 // If defined the movements slow down when the look ahead buffer is only half full
 #define SLOWDOWN
@@ -272,7 +271,13 @@
                                       // Note: Only affects SCROLL_LONG_FILENAMES with SDSORT_CACHE_NAMES but not SDSORT_DYNAMIC_RAM.
   #endif
 
-  #if DISABLED(ANET_LCD2004)
+  #if DISABLED(LCD2004)
+    #define LCD_SET_PROGRESS_MANUALLY
+  #else
+    #define LCD_PROGRESS_BAR
+    #define PROGRESS_BAR_BAR_TIME 2000
+    #define PROGRESS_BAR_MSG_TIME 3000
+    #define PROGRESS_MSG_EXPIRE   0
     #define LCD_SET_PROGRESS_MANUALLY
   #endif
   
@@ -387,16 +392,25 @@
 // The number of linear motions that can be in the plan at any give time.
 // THE BLOCK_BUFFER_SIZE NEEDS TO BE A POWER OF 2 (e.g. 8, 16, 32) because shifts and ors are used to do the ring-buffering.
 #if ENABLED(SDSUPPORT)
-  #define BLOCK_BUFFER_SIZE 16 // SD,LCD,Buttons take more memory, block buffer needs to be smaller
+  #if ENABLED(USB_PRINT_FIX)
+    #define BLOCK_BUFFER_SIZE 64 // SD,LCD,Buttons take more memory, block buffer needs to be smaller
+  #else
+    #define BLOCK_BUFFER_SIZE 32 // SD,LCD,Buttons take more memory, block buffer needs to be smaller
+  #endif
 #else
-  #define BLOCK_BUFFER_SIZE 16 // maximize block buffer
+  #define BLOCK_BUFFER_SIZE 32 // maximize block buffer
 #endif
 
 // @section serial
 
 // The ASCII buffer for serial input
 #define MAX_CMD_SIZE 96
-#define BUFSIZE 4
+#if ENABLED(USB_PRINT_FIX)
+  #define BUFSIZE 16
+#else
+  #define BUFSIZE 4
+#endif
+  
 
 #define TX_BUFFER_SIZE 0
 
@@ -430,11 +444,6 @@
 #endif
 
 //#define PINS_DEBUGGING
-
-#if ENABLED(ULTIPANEL)
-  #define MANUAL_FEEDRATE {70*60, 70*60, 15*60, 6*60} // Feedrates for manual moves along X, Y, Z, E from panel
-  #define ULTIPANEL_FEEDMULTIPLY  // Comment to disable setting feedrate multiplier via encoder
-#endif
 
 #define AUTO_REPORT_TEMPERATURES
 

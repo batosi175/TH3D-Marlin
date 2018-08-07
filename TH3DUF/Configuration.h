@@ -43,6 +43,21 @@
 // ONLY UNCOMMENT THINGS IN ONE PRINTER SECTION!!! IF YOU DO NOT FOLLOW THIS THEN YOU WILL GET ERRORS.
 
 //===========================================================================
+// TH3D Artillery Options - Select Arduino Mega 2560 from Tools > Board
+//===========================================================================
+//#define AR_EZ300
+
+// EZABL Probe Mounts
+//#define CR10_VOLCANO
+//#define CR10_V6HEAVYDUTY
+//#define CR10_OEM
+//#define CR10_FANG
+//#define TM3DAERO
+//#define TM3DAERO_EXTENDED
+//#define PETSFANG
+//#define CUSTOM_PROBE
+
+//===========================================================================
 // Creality CR-10 Options - Select Sanguino(1284P) from Tools > Board
 //===========================================================================
 //#define CR10
@@ -266,6 +281,17 @@
 //#define CUSTOM_PROBE
 
 //===========================================================================
+// Folgetech FT-5 Options - Select Arduino Mega 2560 from Tools > Board
+//===========================================================================
+//#define FT5
+
+// If you are using a 12864 LCD instead of the stock LCD 2004 display uncomment the below line.
+//#define FT5_12864LCD
+
+// EZABL Probe Mounts
+//#define CUSTOM_PROBE
+
+//===========================================================================
 // EZABL Advanced Settings
 //===========================================================================
 
@@ -288,25 +314,15 @@
 // do not use this on your machine.
 //#define EZABL_FASTPROBE
 
-// This can help if you have a shaky Z axis or can help with AC bed interference.
-// This will add a 500MS delay before the probe starts - only use if directed to by support.
-//#define EZABL_STABILIZE
-
-// If you are having leveling issues with the EZABL try uncommenting the below
-// line. This will change the leveling type from bilinear to linear. Some printers
-// do better with linear leveling instead of bilinear.
-// If used with a 1284P board the bootscreen will be disabled to save space.
-//#define LINEAR_LEVELING
-
 // If you want babystepping to modify the Z Offset uncomment the below line. Use M500 to save any changes made or
 // Control > Store Settings if you want to save the changes made with the Z Offset/Babystepping combined option.
 //#define BABYSTEP_OFFSET
 
-// Allow bed to pause probing to recover heat during probing - only use if directed to by support.
-//#define HEATER_RECOVERY
-
 // If you want to keep your heaters ON during probing uncomment the below line - only use if directed to by support. We do NOT recommend doing this on AC beds.
 //#define HEATERS_ON_DURING_PROBING
+
+// This will disable the XYE motors during probing. Can be useful if you have stepper motors causing issues with the EZABL sensor
+//#define PROBING_MOTORS_OFF
 
 // This will extrapolate the implied tilt of the bed outside of the probe area
 // By default this should be ENABLED. Do not comment out unless directed by support.
@@ -379,6 +395,10 @@
 
 // MISC ------------------------------------
 
+// Experimental changes to help smooth out USB printing.
+// Read here for more details: http://lokspace.eu/bad-print-quality-with-usb-or-octoprint-the-solution-is-here/
+//#define USB_PRINT_FIX
+
 // If you are using the TH3D 5015 High Flow Layer Fan enable this to allow the firmware
 // to properly control the fan speed. If this is not enabled then the fan may not spin and/or make noise at low speeds.
 //#define FAN_KICKSTART
@@ -443,69 +463,10 @@
  *    tr, uk, zh_CN, zh_TW, test
  */
 
- #define LCD_LANGUAGE en
-
-//===========================================================================
-// Bed Skew Setup - This is provided for convenience and is unsupported with included product support.
-//===========================================================================
-  
-/**
- * Bed Skew Compensation
- *
- * This feature corrects for misalignment in the XYZ axes.
- *
- * Take the following steps to get the bed skew in the XY plane:
- *  1. Print a test square (e.g., https://www.thingiverse.com/thing:2563185)
- *  2. For XY_DIAG_AC measure the diagonal A to C
- *  3. For XY_DIAG_BD measure the diagonal B to D
- *  4. For XY_SIDE_AD measure the edge A to D
- *
- * Marlin automatically computes skew factors from these measurements.
- * Skew factors may also be computed and set manually:
- *
- *  - Compute AB     : SQRT(2*AC*AC+2*BD*BD-4*AD*AD)/2
- *  - XY_SKEW_FACTOR : TAN(PI/2-ACOS((AC*AC-AB*AB-AD*AD)/(2*AB*AD)))
- *
- * If desired, follow the same procedure for XZ and YZ.
- * Use these diagrams for reference:
- *
- *    Y                     Z                     Z
- *    ^     B-------C       ^     B-------C       ^     B-------C
- *    |    /       /        |    /       /        |    /       /
- *    |   /       /         |   /       /         |   /       /
- *    |  A-------D          |  A-------D          |  A-------D
- *    +-------------->X     +-------------->X     +-------------->Y
- *     XY_SKEW_FACTOR        XZ_SKEW_FACTOR        YZ_SKEW_FACTOR
- */
-//#define SKEW_CORRECTION
-
-#if ENABLED(SKEW_CORRECTION)
-  // Input all length measurements here:
-  #define XY_DIAG_AC 282.8427124746
-  #define XY_DIAG_BD 282.8427124746
-  #define XY_SIDE_AD 200
-
-  // Or, set the default skew factors directly here
-  // to override the above measurements:
-  //#define XY_SKEW_FACTOR 0.0
-
-  //#define SKEW_CORRECTION_FOR_Z
-  #if ENABLED(SKEW_CORRECTION_FOR_Z)
-    #define XZ_DIAG_AC 282.8427124746
-    #define XZ_DIAG_BD 282.8427124746
-    #define YZ_DIAG_AC 282.8427124746
-    #define YZ_DIAG_BD 282.8427124746
-    #define YZ_SIDE_AD 200
-    #define XZ_SKEW_FACTOR 0.0
-    #define YZ_SKEW_FACTOR 0.0
-  #endif
-
-  // Enable this option for M852 to set skew at runtime
-  #define SKEW_CORRECTION_GCODE
-#endif
+#define LCD_LANGUAGE en
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "TH3D U1.R1.9b"
+#define UNIFIED_VERSION "TH3D U1.R1.10"
 
 #endif // CONFIGURATION_H
