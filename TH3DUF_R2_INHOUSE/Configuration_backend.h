@@ -2,6 +2,654 @@
 #define CONFIGURATION_BACKEND_H
 #define CONFIGURATION_BACKEND_H_VERSION 010109
 
+#if ENABLED(TIM_AM8)
+  #define TH3DINHOUSEMACHINE
+  #define NO_COLD_PREVENT
+
+  #define X_DRIVER_TYPE  DRV8825
+  #define Y_DRIVER_TYPE  DRV8825
+  #define Z_DRIVER_TYPE  DRV8825
+  #define E0_DRIVER_TYPE DRV8825
+  #define E1_DRIVER_TYPE DRV8825
+  
+  #ifndef MOTHERBOARD
+    #define MOTHERBOARD BOARD_RAMPS_14_EFB
+  #endif
+
+  #define IS_MKS_BOARD_ATX
+  
+  #define CUSTOM_PROBE
+  #define X_PROBE_OFFSET_FROM_EXTRUDER 33  // X offset: -left  +right  [of the nozzle]
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER 5 // Y offset: -front +behind [the nozzle]
+  #define EZABL_POINTS 3
+  #define EZABL_PROBE_EDGE 10
+  #define EZABL_FASTPROBE
+  #define BABYSTEP_OFFSET
+  #define PROBING_MOTORS_OFF
+  #define LINEAR_ADVANCE
+  #define LINEAR_ADVANCE_K 0
+  #define NEW_JERK_CONTROL
+  #define NEW_ACCELERATION_CONTROL
+    
+  #define CUSTOM_MACHINE_NAME "HakAM8Dual"
+
+  #define EZOUT_V2
+
+  #define SINGLENOZZLE
+
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+  #define BAUDRATE 250000
+  
+  #define TEMP_SENSOR_0 1
+  #define TEMP_SENSOR_BED 1
+  
+  #define POWER_SUPPLY 1
+
+  #if POWER_SUPPLY > 0
+  #define PS_DEFAULT_OFF
+
+  #define AUTO_POWER_CONTROL        // Enable automatic control of the PS_ON pin
+  #if ENABLED(AUTO_POWER_CONTROL)
+    #define AUTO_POWER_FANS           // Turn on PSU if fans need power
+    #define AUTO_POWER_E_FANS
+    #define AUTO_POWER_CONTROLLERFAN
+    #define POWER_TIMEOUT 30
+  #endif
+  #endif
+  
+  #define USE_XMIN_PLUG
+  #define USE_YMIN_PLUG
+  #define USE_ZMIN_PLUG
+  
+  #define ENDSTOPPULLUPS
+  
+  #define X_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+  #define Y_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+  #define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+  #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
+
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   {200, 200, 800, 463}
+  #define DEFAULT_MAX_FEEDRATE          { 400, 400, 15, 25 }
+  #define DEFAULT_MAX_ACCELERATION      { 2000, 2000, 100, 5000 }
+  
+  #define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
+  #define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
+
+  #define DEFAULT_XJERK                 10.0
+  #define DEFAULT_YJERK                 10.0
+  #define DEFAULT_ZJERK                  0.4
+  #define DEFAULT_EJERK                  5.0
+  
+  #define INVERT_X_DIR false
+  #define INVERT_Y_DIR true
+  #define INVERT_Z_DIR false
+  
+  #define INVERT_E0_DIR false
+  #define INVERT_E1_DIR false
+  #define INVERT_E2_DIR false
+  #define INVERT_E3_DIR false
+  #define INVERT_E4_DIR false
+  
+  #define X_HOME_DIR -1
+  #define Y_HOME_DIR -1
+  #define Z_HOME_DIR -1
+
+  #define X_BED_SIZE 220
+  #define Y_BED_SIZE 220
+
+  #define X_MIN_POS -13
+  #define Y_MIN_POS 0
+  #define Z_MIN_POS 0
+  #define X_MAX_POS X_BED_SIZE
+  #define Y_MAX_POS Y_BED_SIZE
+  #define Z_MAX_POS 260
+  
+  #define SDSUPPORT
+  #define ENCODER_PULSES_PER_STEP 4
+  #define ENCODER_STEPS_PER_MENU_ITEM 1
+
+  #define REVERSE_ENCODER_DIRECTION
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+#endif
+
+#if ENABLED(TIM_X5S)
+  #define TH3DINHOUSEMACHINE
+  #define NO_COLD_PREVENT
+  
+  #ifndef MOTHERBOARD
+    #define MOTHERBOARD BOARD_RAMPS_14_EFB
+  #endif
+  
+  #define COREXY
+  
+  #define CUSTOM_PROBE
+  #define X_PROBE_OFFSET_FROM_EXTRUDER 35  // X offset: -left  +right  [of the nozzle]
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER 0  // Y offset: -front +behind [the nozzle]
+  #define EZABL_POINTS 3
+  #define EZABL_PROBE_EDGE 20
+  #define EZABL_FASTPROBE
+  #define BABYSTEP_OFFSET
+  #define PROBING_MOTORS_OFF
+  #define LINEAR_ADVANCE
+  #define LINEAR_ADVANCE_K 0
+  #define NEW_JERK_CONTROL
+  #define NEW_ACCELERATION_CONTROL
+    
+  #define CUSTOM_MACHINE_NAME "HakX5S"
+  #define IS_MKS_BOARD_ATX
+
+  #define EZOUT_V2
+
+  #define BAUDRATE 250000
+  
+  #define TEMP_SENSOR_0 1
+  #define TEMP_SENSOR_BED 5
+  
+  #define POWER_SUPPLY 1
+  
+  #if POWER_SUPPLY > 0
+  #define PS_DEFAULT_OFF
+
+  #define AUTO_POWER_CONTROL        // Enable automatic control of the PS_ON pin
+  #if ENABLED(AUTO_POWER_CONTROL)
+    #define AUTO_POWER_FANS           // Turn on PSU if fans need power
+    #define AUTO_POWER_E_FANS
+    #define AUTO_POWER_CONTROLLERFAN
+    #define POWER_TIMEOUT 30
+  #endif
+  #endif
+  
+  #define USE_XMIN_PLUG
+  #define USE_YMIN_PLUG
+  #define USE_ZMIN_PLUG
+  
+  #define ENDSTOPPULLUPS
+  
+  #define X_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+  #define Y_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+  #define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+  #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
+
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 463 }
+  #define DEFAULT_MAX_FEEDRATE          { 400, 400, 15, 25 }
+  #define DEFAULT_MAX_ACCELERATION      { 2000, 2000, 100, 10000 }
+  
+  #define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
+  #define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
+
+  #define DEFAULT_XJERK                 10.0
+  #define DEFAULT_YJERK                 10.0
+  #define DEFAULT_ZJERK                  0.4
+  #define DEFAULT_EJERK                  5.0
+  
+  #define INVERT_X_DIR false
+  #define INVERT_Y_DIR false
+  #define INVERT_Z_DIR true
+  
+  #define INVERT_E0_DIR false
+  #define INVERT_E1_DIR false
+  #define INVERT_E2_DIR false
+  #define INVERT_E3_DIR false
+  #define INVERT_E4_DIR false
+  
+  #define X_HOME_DIR -1
+  #define Y_HOME_DIR -1
+  #define Z_HOME_DIR -1
+
+  #define X_BED_SIZE 330
+  #define Y_BED_SIZE 330
+
+  #define X_MIN_POS -3
+  #define Y_MIN_POS -15
+  
+  #define X_MAX_POS X_BED_SIZE
+  #define Y_MAX_POS Y_BED_SIZE
+  #define Z_MAX_POS 400
+  
+  #define SDSUPPORT
+
+  #define REVERSE_ENCODER_DIRECTION
+  #define REPRAP_DISCOUNT_SMART_CONTROLLER
+  #define LCD2004
+
+  #define X_DRIVER_TYPE  DRV8825
+  #define Y_DRIVER_TYPE  DRV8825
+  #define Z_DRIVER_TYPE  DRV8825
+  #define E0_DRIVER_TYPE A4988
+#endif
+
+#if ENABLED(TIM_TORNADO)
+  #define TORNADO
+  #define PETSFANG
+  #define EZABL_POINTS 3
+  #define EZABL_PROBE_EDGE 25
+  #define NO_COLD_PREVENT
+  #define EZABL_FASTPROBE
+  #define BABYSTEP_OFFSET
+  #define PROBING_MOTORS_OFF
+  #define LINEAR_ADVANCE
+  #define LINEAR_ADVANCE_K 0
+  #define NEW_JERK_CONTROL
+  #define NEW_ACCELERATION_CONTROL
+  #define TITAN_EXTRUDER
+  #define USER_PRINTER_NAME "HakTornado"   
+#endif
+
+#if ENABLED(TIM_WI3)
+  #define WANHAO_I3
+  #define WANHAO_I3_OEM
+  #define EZABL_POINTS 3
+  #define EZABL_PROBE_EDGE 10
+  #define NO_COLD_PREVENT
+  #define EZABL_FASTPROBE
+  #define BABYSTEP_OFFSET
+  #define PROBING_MOTORS_OFF
+  #define LINEAR_ADVANCE
+  #define LINEAR_ADVANCE_K 0
+  #define NEW_JERK_CONTROL
+  #define NEW_ACCELERATION_CONTROL
+  #define USER_PRINTER_NAME "HakWi3"   
+#endif
+
+#if ENABLED(TIM_EZ300)
+  #define AR_EZ300
+  #define CR10_OEM
+  #define EZABL_POINTS 3
+  #define EZABL_PROBE_EDGE 45
+  #define NO_COLD_PREVENT
+  #define EZABL_FASTPROBE
+  #define BABYSTEP_OFFSET
+  #define PROBING_MOTORS_OFF
+  #define LINEAR_ADVANCE
+  #define LINEAR_ADVANCE_K 0
+  #define NEW_JERK_CONTROL
+  #define NEW_ACCELERATION_CONTROL
+  #define USER_PRINTER_NAME "HakEZ300"   
+#endif
+
+#if ENABLED(TIM_D6)
+  #define WANHAO_D6
+  #define WANHAO_D6_OEM
+  #define EZABL_POINTS 3
+  #define EZABL_PROBE_EDGE 10
+  #define NO_COLD_PREVENT
+  #define EZABL_FASTPROBE
+  #define BABYSTEP_OFFSET
+  #define PROBING_MOTORS_OFF
+  #define LINEAR_ADVANCE
+  #define LINEAR_ADVANCE_K 0
+  #define NEW_JERK_CONTROL
+  #define NEW_ACCELERATION_CONTROL
+  #define USER_PRINTER_NAME "HakD6"   
+#endif
+
+#if ENABLED(TIM_CR10MINI)
+  #define CR10S_MINI
+  #define CR10_OEM
+  #define CR10LCD_CR10S
+  #define EZABL_POINTS 3
+  #define EZABL_PROBE_EDGE 30
+  #define NO_COLD_PREVENT
+  #define EZABL_FASTPROBE
+  #define BABYSTEP_OFFSET
+  #define PROBING_MOTORS_OFF
+  #define LINEAR_ADVANCE
+  #define LINEAR_ADVANCE_K 0
+  #define NEW_JERK_CONTROL
+  #define NEW_ACCELERATION_CONTROL
+  #define TITAN_EXTRUDER
+  #define USER_PRINTER_NAME "HakCR10Mini"   
+#endif
+
+#if ENABLED(TIM_E10)
+  #define TH3DINHOUSEMACHINE
+  #define NO_COLD_PREVENT
+  
+  #ifndef MOTHERBOARD
+    #define MOTHERBOARD BOARD_RAMPS_14_EFB
+  #endif
+
+  #define CUSTOM_PROBE
+  #define X_PROBE_OFFSET_FROM_EXTRUDER -51  // X offset: -left  +right  [of the nozzle]
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER -7 // Y offset: -front +behind [the nozzle]
+  #define EZABL_POINTS 3
+  #define EZABL_PROBE_EDGE 20
+  #define EZABL_FASTPROBE
+  #define BABYSTEP_OFFSET
+  #define PROBING_MOTORS_OFF
+  #define LINEAR_ADVANCE
+  #define LINEAR_ADVANCE_K 0
+  #define NEW_JERK_CONTROL
+  #define NEW_ACCELERATION_CONTROL
+    
+  #define CUSTOM_MACHINE_NAME "HakE10"
+  #define IS_MKS_BOARD_ATX
+
+  #define EZOUT_V2
+
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+  #define BAUDRATE 250000
+  
+  #define TEMP_SENSOR_0 1
+  #define TEMP_SENSOR_BED 5
+  
+  #define POWER_SUPPLY 1
+  
+  #if POWER_SUPPLY > 0
+  #define PS_DEFAULT_OFF
+
+  #define AUTO_POWER_CONTROL        // Enable automatic control of the PS_ON pin
+  #if ENABLED(AUTO_POWER_CONTROL)
+    #define AUTO_POWER_FANS           // Turn on PSU if fans need power
+    #define AUTO_POWER_E_FANS
+    #define AUTO_POWER_CONTROLLERFAN
+    #define POWER_TIMEOUT 30
+  #endif
+  #endif
+  
+  #define USE_XMIN_PLUG
+  #define USE_YMIN_PLUG
+  #define USE_ZMIN_PLUG
+  
+  #define ENDSTOPPULLUPS
+  
+  #define X_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+  #define Y_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+  #define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+  #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
+
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 463 }
+  #define DEFAULT_MAX_FEEDRATE          { 400, 400, 15, 25 }
+  #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 5000 }
+  
+  #define DEFAULT_ACCELERATION          500    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
+  #define DEFAULT_TRAVEL_ACCELERATION   500    // X, Y, Z acceleration for travel (non printing) moves
+
+  #define DEFAULT_XJERK                 10.0
+  #define DEFAULT_YJERK                 10.0
+  #define DEFAULT_ZJERK                  0.4
+  #define DEFAULT_EJERK                  5.0
+  
+  #define INVERT_X_DIR true
+  #define INVERT_Y_DIR false
+  #define INVERT_Z_DIR false
+  
+  #define INVERT_E0_DIR true
+  #define INVERT_E1_DIR false
+  #define INVERT_E2_DIR false
+  #define INVERT_E3_DIR false
+  #define INVERT_E4_DIR false
+  
+  #define X_HOME_DIR -1
+  #define Y_HOME_DIR -1
+  #define Z_HOME_DIR -1
+
+  #define X_BED_SIZE 210
+  #define Y_BED_SIZE 270
+
+  #define X_MIN_POS 0
+  #define Y_MIN_POS -8
+  
+  #define X_MAX_POS X_BED_SIZE
+  #define Y_MAX_POS Y_BED_SIZE
+  #define Z_MAX_POS 300
+  
+  #define SDSUPPORT
+
+  #define REVERSE_ENCODER_DIRECTION
+  #define ANET_FULL_GRAPHICS_LCD
+
+  #define X_DRIVER_TYPE  DRV8825
+  #define Y_DRIVER_TYPE  DRV8825
+  #define Z_DRIVER_TYPE  DRV8825
+  #define E0_DRIVER_TYPE A4988
+#endif
+
+#if ENABLED(TIM_ENDER2)
+  #define ENDER2
+  #define ENDER2_V6
+  #define EZABL_POINTS 3
+  #define EZABL_PROBE_EDGE 15
+  #define NO_COLD_PREVENT
+  #define EZABL_FASTPROBE
+  #define BABYSTEP_OFFSET
+  #define PROBING_MOTORS_OFF
+  #define LINEAR_ADVANCE
+  #define LINEAR_ADVANCE_K 0
+  #define NEW_JERK_CONTROL
+  #define NEW_ACCELERATION_CONTROL
+  #define USER_PRINTER_NAME "HakEnder2"   
+#endif
+
+#if ENABLED(TIM_SMARTT)
+  #define TH3DINHOUSEMACHINE
+  #define NO_COLD_PREVENT
+
+  #define X_DRIVER_TYPE  DRV8825
+  #define Y_DRIVER_TYPE  DRV8825
+  #define Z_DRIVER_TYPE  DRV8825
+  #define E0_DRIVER_TYPE A4988
+  
+  #ifndef MOTHERBOARD
+    #define MOTHERBOARD BOARD_RAMPS_14_EFB
+  #endif
+
+  #define CUSTOM_PROBE
+  #define X_PROBE_OFFSET_FROM_EXTRUDER 35  // X offset: -left  +right  [of the nozzle]
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER 0  // Y offset: -front +behind [the nozzle]
+  #define EZABL_POINTS 3
+  #define EZABL_PROBE_EDGE 10
+  #define EZABL_FASTPROBE
+  #define BABYSTEP_OFFSET
+  #define PROBING_MOTORS_OFF
+  #define LINEAR_ADVANCE
+  #define LINEAR_ADVANCE_K 0
+  #define NEW_JERK_CONTROL
+  #define NEW_ACCELERATION_CONTROL
+    
+  #define CUSTOM_MACHINE_NAME "HakSMARTT"
+
+  //#define EZOUT_V2
+
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+  #define BAUDRATE 250000
+  
+  #define TEMP_SENSOR_0 1
+  #define TEMP_SENSOR_BED 1
+  
+  #define POWER_SUPPLY 1
+
+  #if POWER_SUPPLY > 0
+  #define PS_DEFAULT_OFF
+
+  #define AUTO_POWER_CONTROL        // Enable automatic control of the PS_ON pin
+  #if ENABLED(AUTO_POWER_CONTROL)
+    #define AUTO_POWER_FANS           // Turn on PSU if fans need power
+    #define AUTO_POWER_E_FANS
+    #define AUTO_POWER_CONTROLLERFAN
+    #define POWER_TIMEOUT 30
+  #endif
+  #endif
+  
+  #define USE_XMIN_PLUG
+  #define USE_YMIN_PLUG
+  #define USE_ZMIN_PLUG
+  
+  #define ENDSTOPPULLUPS
+  
+  #define X_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+  #define Y_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+  #define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+  #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
+
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   {200, 200, 3200, 95}
+  #define DEFAULT_MAX_FEEDRATE          { 400, 400, 8, 25 }
+  #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 5000 }
+  
+  #define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
+  #define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves
+
+  #define DEFAULT_XJERK                 10.0
+  #define DEFAULT_YJERK                 10.0
+  #define DEFAULT_ZJERK                  0.4
+  #define DEFAULT_EJERK                  5.0
+  
+  #define INVERT_X_DIR false
+  #define INVERT_Y_DIR true
+  #define INVERT_Z_DIR false
+  
+  #define INVERT_E0_DIR true
+  #define INVERT_E1_DIR false
+  #define INVERT_E2_DIR false
+  #define INVERT_E3_DIR false
+  #define INVERT_E4_DIR false
+  
+  #define X_HOME_DIR -1
+  #define Y_HOME_DIR -1
+  #define Z_HOME_DIR -1
+
+  #define X_BED_SIZE 150
+  #define Y_BED_SIZE 145
+
+  #define X_MIN_POS 0
+  #define Y_MIN_POS 0
+  #define Z_MIN_POS 0
+  #define X_MAX_POS X_BED_SIZE
+  #define Y_MAX_POS Y_BED_SIZE
+  #define Z_MAX_POS 140
+  
+  #define SDSUPPORT
+  #define ENCODER_PULSES_PER_STEP 4
+  #define ENCODER_STEPS_PER_MENU_ITEM 1
+
+  #define REVERSE_ENCODER_DIRECTION
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+#endif
+
+#if ENABLED(TIM_CR10)
+  #define TH3DINHOUSEMACHINE
+  #define NO_COLD_PREVENT
+
+  #define X_DRIVER_TYPE  DRV8825
+  #define Y_DRIVER_TYPE  DRV8825
+  #define Z_DRIVER_TYPE  DRV8825
+  #define E0_DRIVER_TYPE A4988
+  
+  #ifndef MOTHERBOARD
+    #define MOTHERBOARD BOARD_RAMPS_14_EFB
+  #endif
+
+  #define CR10_VOLCANO
+  #define EZABL_POINTS 3
+  #define EZABL_PROBE_EDGE 50
+  #define EZABL_FASTPROBE
+  #define BABYSTEP_OFFSET
+  #define PROBING_MOTORS_OFF
+  #define LINEAR_ADVANCE
+  #define LINEAR_ADVANCE_K 0
+  #define NEW_JERK_CONTROL
+  #define NEW_ACCELERATION_CONTROL
+    
+  #define CUSTOM_MACHINE_NAME "HakCR10"
+  #define IS_MKS_BOARD_ATX
+
+  #define EZOUT_V2
+
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+  #define BAUDRATE 250000
+  
+  #define TEMP_SENSOR_0 1
+  #define TEMP_SENSOR_BED 5
+  
+  #define POWER_SUPPLY 1
+  
+  #if POWER_SUPPLY > 0
+  #define PS_DEFAULT_OFF
+
+  #define AUTO_POWER_CONTROL        // Enable automatic control of the PS_ON pin
+  #if ENABLED(AUTO_POWER_CONTROL)
+    #define AUTO_POWER_FANS           // Turn on PSU if fans need power
+    #define AUTO_POWER_E_FANS
+    #define AUTO_POWER_CONTROLLERFAN
+    #define POWER_TIMEOUT 30
+  #endif
+  #endif
+  
+  #define USE_XMIN_PLUG
+  #define USE_YMIN_PLUG
+  #define USE_ZMIN_PLUG
+  
+  #define ENDSTOPPULLUPS
+  
+  #define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+  #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
+
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 463 }
+  #define DEFAULT_MAX_FEEDRATE          { 400, 400, 15, 25 }
+  #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 5000 }
+  
+  #define DEFAULT_ACCELERATION          500    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
+  #define DEFAULT_TRAVEL_ACCELERATION   500    // X, Y, Z acceleration for travel (non printing) moves
+
+  #define DEFAULT_XJERK                 10.0
+  #define DEFAULT_YJERK                 10.0
+  #define DEFAULT_ZJERK                  0.4
+  #define DEFAULT_EJERK                  5.0
+  
+  #define INVERT_X_DIR true
+  #define INVERT_Y_DIR true
+  #define INVERT_Z_DIR false
+  
+  #define INVERT_E0_DIR false
+  #define INVERT_E1_DIR false
+  #define INVERT_E2_DIR false
+  #define INVERT_E3_DIR false
+  #define INVERT_E4_DIR false
+  
+  #define X_HOME_DIR -1
+  #define Y_HOME_DIR -1
+  #define Z_HOME_DIR -1
+
+  #define X_BED_SIZE 300
+  #define Y_BED_SIZE 300
+
+  #define X_MIN_POS 0
+  #define Y_MIN_POS 0
+  #define Z_MIN_POS 0
+  #define X_MAX_POS X_BED_SIZE
+  #define Y_MAX_POS Y_BED_SIZE
+  #define Z_MAX_POS 400
+  
+  #define SDSUPPORT
+  #define ENCODER_PULSES_PER_STEP 4
+  #define ENCODER_STEPS_PER_MENU_ITEM 1
+
+  #define REVERSE_ENCODER_DIRECTION
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+#endif
+
 //===========================================================================
 //==================== DO NOT MODIFY BELOW THIS LINE ========================
 //===========================================================================
@@ -19,6 +667,7 @@
  *          TMC5130, TMC5130_STANDALONE
  * :['A4988', 'DRV8825', 'LV8729', 'L6470', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE']
  */
+#if DISABLED(TH3DINHOUSEMACHINE)
 #define X_DRIVER_TYPE  A4988
 #define Y_DRIVER_TYPE  A4988
 #define Z_DRIVER_TYPE  A4988
@@ -30,6 +679,7 @@
 #define E2_DRIVER_TYPE A4988
 #define E3_DRIVER_TYPE A4988
 #define E4_DRIVER_TYPE A4988
+#endif
 
 //Sensor Mounts
 #if ENABLED(CUSTOM_PROBE)
@@ -1236,20 +1886,22 @@
 #endif //End ANET model settings
 
 //Misc Settings
-#if defined(USER_PRINTER_NAME)
-  #define CUSTOM_MACHINE_NAME USER_PRINTER_NAME
-#else
-  #if ENABLED(AR_EZ300)
-    #define CUSTOM_MACHINE_NAME "TH3D Artillery"
-  #elif ENABLED(EZABL_ENABLE)
-    #define CUSTOM_MACHINE_NAME "TH3D EZABL"
-  #elif ENABLED(EZOUT_ENABLE)
-    #define CUSTOM_MACHINE_NAME "TH3D EZOut"
+#if DISABLED(TH3DINHOUSEMACHINE)
+  #if defined(USER_PRINTER_NAME)
+    #define CUSTOM_MACHINE_NAME USER_PRINTER_NAME
   #else
-    #define CUSTOM_MACHINE_NAME SHORT_BUILD_VERSION
+    #if ENABLED(AR_EZ300)
+      #define CUSTOM_MACHINE_NAME "TH3D Artillery"
+    #elif ENABLED(EZABL_ENABLE)
+      #define CUSTOM_MACHINE_NAME "TH3D EZABL"
+    #elif ENABLED(EZOUT_ENABLE)
+      #define CUSTOM_MACHINE_NAME "TH3D EZOut"
+    #else
+      #define CUSTOM_MACHINE_NAME SHORT_BUILD_VERSION
+    #endif
   #endif
 #endif
-
+  
 //END TH3D MAIN SETTINGS
 
 #if ENABLED(SLIM_1284P)
@@ -1275,7 +1927,7 @@
 
 #define SERIAL_PORT 0
 
-#if ENABLED(CR10SDUALEBOARD)
+#if ENABLED(CR10SDUALEBOARD) || ENABLED(TIM_AM8)
   #define EXTRUDERS 2
 #else
   #define EXTRUDERS 1
@@ -1283,20 +1935,24 @@
 
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
 
-#define POWER_SUPPLY 0
+#if DISABLED(TH3DINHOUSEMACHINE)
+  #define POWER_SUPPLY 0
+#endif
 
-#if ENABLED(V6_HOTEND)
-  #define TEMP_SENSOR_0 5
-#elif ENABLED(TH3D_HOTEND_THERMISTOR)
-  #define TEMP_SENSOR_0 1
-#elif ENABLED(WANHAO_D6)
-  #define TEMP_SENSOR_0 20
-#elif ENABLED(WANHAO_10K_THERMISTOR)
-  #define TEMP_SENSOR_0 99
-#elif ENABLED(WANHAO_I3MINI)
-  #define TEMP_SENSOR_0 13
-#else
-  #define TEMP_SENSOR_0 1
+#if DISABLED(TH3DINHOUSEMACHINE)
+  #if ENABLED(V6_HOTEND)
+    #define TEMP_SENSOR_0 5
+  #elif ENABLED(TH3D_HOTEND_THERMISTOR)
+    #define TEMP_SENSOR_0 1
+  #elif ENABLED(WANHAO_D6)
+    #define TEMP_SENSOR_0 20
+  #elif ENABLED(WANHAO_10K_THERMISTOR)
+    #define TEMP_SENSOR_0 99
+  #elif ENABLED(WANHAO_I3MINI)
+    #define TEMP_SENSOR_0 13
+  #else
+    #define TEMP_SENSOR_0 1
+  #endif
 #endif
 
 #if ENABLED(DUAL_HOTEND_DUAL_NOZZLES)
@@ -1312,6 +1968,7 @@
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
 
+#if DISABLED(TH3DINHOUSEMACHINE)
 #if ENABLED(AC_BED) || ENABLED(WANHAO_I3MINI)
   #define TEMP_SENSOR_BED 0
 #elif ENABLED(TH3D_BED_THERMISTOR) || ENABLED(ALFAWISE_U10) || ENABLED(FT5)
@@ -1332,6 +1989,7 @@
  #else
   #define TEMP_SENSOR_BED 5
  #endif
+#endif
 #endif
 
 #define TEMP_RESIDENCY_TIME 5  
@@ -1409,7 +2067,9 @@
   #endif	
 #endif
 
+#if DISABLED(TH3DINHOUSEMACHINE) && DISABLED(NO_COLD_PREVENT)
 #define PREVENT_COLD_EXTRUSION
+#endif
 #define EXTRUDE_MINTEMP 120
 
 #define PREVENT_LENGTHY_EXTRUDE
@@ -1520,7 +2180,11 @@
     #else
       #define FIL_RUNOUT_INVERTING true
     #endif
-    #define NUM_RUNOUT_SENSORS   1
+    #if DISABLED(TIM_AM8)
+      #define NUM_RUNOUT_SENSORS   1
+    #else
+      #define NUM_RUNOUT_SENSORS   2
+    #endif
     #define FIL_RUNOUT_PULLUP
     #define FILAMENT_RUNOUT_SCRIPT "M600"
   #endif

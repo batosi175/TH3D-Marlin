@@ -42,6 +42,32 @@
 
 // ONLY UNCOMMENT THINGS IN ONE PRINTER SECTION!!! IF YOU DO NOT FOLLOW THIS THEN YOU WILL GET ERRORS.
 
+//DONE
+//TH3D SMARTT
+//#define TIM_SMARTT
+//TH3D ENDER2 
+//#define TIM_ENDER2
+//TH3D E10
+//#define TIM_E10
+//TH3D EZ300
+//#define TIM_EZ300
+
+//TO DO
+//TH3D CR-10 Mini
+//#define TIM_CR10MINI
+//TH3D CR-10
+//#define TIM_CR10
+//TH3D D6
+//#define TIM_D6
+//TH3D Wanhao i3
+//#define TIM_WI3
+//TH3D Tornado
+//#define TIM_TORNADO
+//TH3D X5S
+//#define TIM_X5S
+//TH3D AM8
+//#define TIM_AM8
+
 //===========================================================================
 // TH3D Artillery Options - Select Arduino Mega 2560 from Tools > Board
 //===========================================================================
@@ -292,7 +318,7 @@
 // If you want more or less EZABL probe points change the number below (only used if EZABL enabled)
 // Default is 4 which gives you 4x4 grid. Do not go over 10 here.
 // Ender 2 will be best with a 3x3 grid, change to a 3 for Ender 2
-#define EZABL_POINTS 4
+//#define EZABL_POINTS 3
 
 // If you want to probe in on the bed more than 15mm change this below. 
 // Do not use 30mm for the Standard CR-10/s or the S4 as you will be on the bed screws.
@@ -300,7 +326,7 @@
 // You can do down to 10mm on the Wanhao i3 since it cannot print on the entire bed.
 // You can do down to 5mm on the Wanhao i3 Mini since it cannot print on the entire bed.
 // (only used if EZABL enabled)
-#define EZABL_PROBE_EDGE 15
+//#define EZABL_PROBE_EDGE 50
 
 // If you want to speed up the probing process you can try using the Fast Probe option
 // DO NOTE: Not all machines will be accurate at the quicker speeds. Use M48 to verify accuracy.
@@ -443,7 +469,7 @@
 // Uncomment the below line to enable Linear Advance Pressure Control.
 //#define LINEAR_ADVANCE
 // Change the K Value here or use M900 KX.XX in your starting code (recommended).
-#define LINEAR_ADVANCE_K 0
+//#define LINEAR_ADVANCE_K 0
 
 // These are new motion control options for jerk and acceleration.
 // These are very new features so if you notice issues disable them. 
