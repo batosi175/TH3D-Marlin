@@ -42,30 +42,37 @@
 
 // ONLY UNCOMMENT THINGS IN ONE PRINTER SECTION!!! IF YOU DO NOT FOLLOW THIS THEN YOU WILL GET ERRORS.
 
-//DONE
-//TH3D SMARTT
+//TH3D SMARTT - Disabled motors off flashed 8/8/18
 //#define TIM_SMARTT
-//TH3D ENDER2 
+
+//TH3D ENDER2 - Disabled motors off flashed 8/8/18
 //#define TIM_ENDER2
+
 //TH3D E10
 //#define TIM_E10
+
 //TH3D EZ300
 //#define TIM_EZ300
 
-//TO DO
 //TH3D CR-10 Mini
 //#define TIM_CR10MINI
-//TH3D CR-10
+
+//TH3D CR-10 - Disabled motors off flashed 8/8/18
 //#define TIM_CR10
+
 //TH3D D6
 //#define TIM_D6
-//TH3D Wanhao i3
+
+//TH3D Wanhao i3 - Disabled motors off flashed 8/8/18
 //#define TIM_WI3
-//TH3D Tornado
+
+//TH3D Tornado - Disabled motors off flashed 8/8/18
 //#define TIM_TORNADO
+
 //TH3D X5S
 //#define TIM_X5S
-//TH3D AM8
+
+//TH3D AM8 - Disabled motors off flashed 8/8/18
 //#define TIM_AM8
 
 //===========================================================================

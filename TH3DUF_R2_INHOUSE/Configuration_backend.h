@@ -25,7 +25,7 @@
   #define EZABL_PROBE_EDGE 10
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
-  #define PROBING_MOTORS_OFF
+  
   #define LINEAR_ADVANCE
   #define LINEAR_ADVANCE_K 0
   #define NEW_JERK_CONTROL
@@ -133,7 +133,7 @@
   #define EZABL_PROBE_EDGE 20
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
-  #define PROBING_MOTORS_OFF
+  
   #define LINEAR_ADVANCE
   #define LINEAR_ADVANCE_K 0
   #define NEW_JERK_CONTROL
@@ -178,7 +178,7 @@
   #define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
 
   #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 463 }
-  #define DEFAULT_MAX_FEEDRATE          { 400, 400, 15, 25 }
+  #define DEFAULT_MAX_FEEDRATE          { 200, 200, 15, 25 }
   #define DEFAULT_MAX_ACCELERATION      { 2000, 2000, 100, 10000 }
   
   #define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
@@ -234,7 +234,7 @@
   #define NO_COLD_PREVENT
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
-  #define PROBING_MOTORS_OFF
+  
   #define LINEAR_ADVANCE
   #define LINEAR_ADVANCE_K 0
   #define NEW_JERK_CONTROL
@@ -251,7 +251,7 @@
   #define NO_COLD_PREVENT
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
-  #define PROBING_MOTORS_OFF
+  
   #define LINEAR_ADVANCE
   #define LINEAR_ADVANCE_K 0
   #define NEW_JERK_CONTROL
@@ -267,7 +267,7 @@
   #define NO_COLD_PREVENT
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
-  #define PROBING_MOTORS_OFF
+  
   #define LINEAR_ADVANCE
   #define LINEAR_ADVANCE_K 0
   #define NEW_JERK_CONTROL
@@ -279,11 +279,11 @@
   #define WANHAO_D6
   #define WANHAO_D6_OEM
   #define EZABL_POINTS 3
-  #define EZABL_PROBE_EDGE 10
+  #define EZABL_PROBE_EDGE 20
   #define NO_COLD_PREVENT
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
-  #define PROBING_MOTORS_OFF
+  
   #define LINEAR_ADVANCE
   #define LINEAR_ADVANCE_K 0
   #define NEW_JERK_CONTROL
@@ -297,10 +297,11 @@
   #define CR10LCD_CR10S
   #define EZABL_POINTS 3
   #define EZABL_PROBE_EDGE 30
+  #define EZOUT_V2
   #define NO_COLD_PREVENT
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
-  #define PROBING_MOTORS_OFF
+  
   #define LINEAR_ADVANCE
   #define LINEAR_ADVANCE_K 0
   #define NEW_JERK_CONTROL
@@ -324,7 +325,7 @@
   #define EZABL_PROBE_EDGE 20
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
-  #define PROBING_MOTORS_OFF
+  
   #define LINEAR_ADVANCE
   #define LINEAR_ADVANCE_K 0
   #define NEW_JERK_CONTROL
@@ -425,7 +426,7 @@
   #define NO_COLD_PREVENT
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
-  #define PROBING_MOTORS_OFF
+  
   #define LINEAR_ADVANCE
   #define LINEAR_ADVANCE_K 0
   #define NEW_JERK_CONTROL
@@ -453,7 +454,7 @@
   #define EZABL_PROBE_EDGE 10
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
-  #define PROBING_MOTORS_OFF
+  
   #define LINEAR_ADVANCE
   #define LINEAR_ADVANCE_K 0
   #define NEW_JERK_CONTROL
@@ -560,7 +561,7 @@
   #define EZABL_PROBE_EDGE 50
   #define EZABL_FASTPROBE
   #define BABYSTEP_OFFSET
-  #define PROBING_MOTORS_OFF
+  
   #define LINEAR_ADVANCE
   #define LINEAR_ADVANCE_K 0
   #define NEW_JERK_CONTROL
