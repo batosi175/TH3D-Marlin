@@ -185,9 +185,7 @@ uint16_t max_display_update_time = 0;
   #endif
 
   #if DISABLED(NO_VOLUMETRICS) || ENABLED(ADVANCED_PAUSE_FEATURE)
-    #if DISABLED(SLIM_LCD_MENUS)
-      void lcd_control_filament_menu();
-    #endif
+    void lcd_control_filament_menu();
   #endif
 
   #if ENABLED(LCD_INFO_MENU)
@@ -3337,9 +3335,7 @@ void lcd_quick_feedback(const bool clear_buttons) {
     MENU_ITEM(submenu, MSG_MOTION, lcd_control_motion_menu);
 
     #if DISABLED(NO_VOLUMETRICS) || ENABLED(ADVANCED_PAUSE_FEATURE)
-      #if DISABLED(SLIM_LCD_MENUS)
-        MENU_ITEM(submenu, MSG_FILAMENT, lcd_control_filament_menu);
-      #endif
+      MENU_ITEM(submenu, MSG_FILAMENT, lcd_control_filament_menu);
     #elif ENABLED(LIN_ADVANCE)
       MENU_ITEM_EDIT(float52, MSG_ADVANCE_K, &planner.extruder_advance_K, 0, 999);
     #endif
@@ -3555,14 +3551,9 @@ void lcd_quick_feedback(const bool clear_buttons) {
       #endif
 
       #if ENABLED(PID_AUTOTUNE_MENU)
-        #if DISABLED(SLIM_LCD_MENUS)
-          #define PID_MENU_ITEMS(ELABEL, eindex) \
-            _PID_MENU_ITEMS(ELABEL, eindex); \
-            MENU_MULTIPLIER_ITEM_EDIT_CALLBACK(int3, MSG_PID_AUTOTUNE ELABEL, &autotune_temp[eindex], 150, heater_maxtemp[eindex] - 15, lcd_autotune_callback_E ## eindex)
-          #else
-            #define PID_MENU_ITEMS(ELABEL, eindex) \
-              MENU_MULTIPLIER_ITEM_EDIT_CALLBACK(int3, MSG_PID_AUTOTUNE ELABEL, &autotune_temp[eindex], 150, heater_maxtemp[eindex] - 15, lcd_autotune_callback_E ## eindex)
-          #endif
+        #define PID_MENU_ITEMS(ELABEL, eindex) \
+          _PID_MENU_ITEMS(ELABEL, eindex); \
+          MENU_MULTIPLIER_ITEM_EDIT_CALLBACK(int3, MSG_PID_AUTOTUNE ELABEL, &autotune_temp[eindex], 150, heater_maxtemp[eindex] - 15, lcd_autotune_callback_E ## eindex)
       #else
         #define PID_MENU_ITEMS(ELABEL, eindex) _PID_MENU_ITEMS(ELABEL, eindex)
       #endif

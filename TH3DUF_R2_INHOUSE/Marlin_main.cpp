@@ -7638,14 +7638,12 @@ inline void gcode_M42() {
    * M48: Z probe repeatability measurement function.
    *
    * Usage:
-   *   M48 <P#> <X#> <Y#> <V#> <E> <L#> <S>
+   *   M48 <P#> <X#> <Y#> <V#> <E>
    *     P = Number of sampled points (4-50, default 10)
    *     X = Sample X position
    *     Y = Sample Y position
    *     V = Verbose level (0-4, default=1)
    *     E = Engage Z probe for each reading
-   *     L = Number of legs of movement before probe
-   *     S = Schizoid (Or Star if you prefer)
    *
    * This function requires the machine to be homed before invocation.
    */
@@ -7656,13 +7654,13 @@ inline void gcode_M42() {
     const int8_t verbose_level = parser.byteval('V', 1);
     #if DISABLED(SLIM_1284P)
       if (!WITHIN(verbose_level, 0, 4)) {
-      SERIAL_PROTOCOLLNPGM("?(V)erbose level is implausible (0-4).");
+      SERIAL_PROTOCOLLNPGM("?(V)erbose level error (0-4).");
       return;
       }
     #endif
 
     if (verbose_level > 0)
-      SERIAL_PROTOCOLLNPGM("Z-Probe Test");
+      SERIAL_PROTOCOLLNPGM("EZABL Test");
 
     const int8_t n_samples = parser.byteval('P', 10);
     #if DISABLED(SLIM_1284P)
@@ -7685,25 +7683,16 @@ inline void gcode_M42() {
       return;
     }
 
-    bool seen_L = parser.seen('L');
-    uint8_t n_legs = seen_L ? parser.value_byte() : 0;
-    if (n_legs > 15) {
-      SERIAL_PROTOCOLLNPGM("?Number of legs in movement not plausible (0-15).");
-      return;
-    }
-    if (n_legs == 1) n_legs = 2;
-
-    const bool schizoid_flag = parser.boolval('S');
-    if (schizoid_flag && !seen_L) n_legs = 7;
-
     /**
      * Now get everything to the specified probe point So we can safely do a
      * probe to get us close to the bed.  If the Z-Axis is far from the bed,
      * we don't want to use that as a starting point for each probe.
      */
-    if (verbose_level > 2)
-      SERIAL_PROTOCOLLNPGM("Positioning the probe...");
-
+    #if DISABLED(SLIM_1284P)
+      if (verbose_level > 2)
+        SERIAL_PROTOCOLLNPGM("Positioning the probe...");
+    #endif
+    
     // Disable bed level correction in M48 because we want the raw data when we probe
 
     #if HAS_LEVELING
@@ -7723,82 +7712,6 @@ inline void gcode_M42() {
       randomSeed(millis());
 
       for (uint8_t n = 0; n < n_samples; n++) {
-        if (n_legs) {
-          const int dir = (random(0, 10) > 5.0) ? -1 : 1;  // clockwise or counter clockwise
-          float angle = random(0.0, 360.0);
-          const float radius = random(
-            #if ENABLED(DELTA)
-              0.1250000000 * (DELTA_PRINTABLE_RADIUS),
-              0.3333333333 * (DELTA_PRINTABLE_RADIUS)
-            #else
-              5.0, 0.125 * MIN(X_BED_SIZE, Y_BED_SIZE)
-            #endif
-          );
-
-          #if DISABLED(SLIM_1284P)          
-            if (verbose_level > 3) {
-              SERIAL_ECHOPAIR("Starting radius: ", radius);
-              SERIAL_ECHOPAIR("   angle: ", angle);
-              SERIAL_ECHOPGM(" Direction: ");
-              if (dir > 0) SERIAL_ECHOPGM("Counter-");
-              SERIAL_ECHOLNPGM("Clockwise");
-            }
-          #endif 
-
-          for (uint8_t l = 0; l < n_legs - 1; l++) {
-            float delta_angle;
-
-            if (schizoid_flag)
-              // The points of a 5 point star are 72 degrees apart.  We need to
-              // skip a point and go to the next one on the star.
-              delta_angle = dir * 2.0 * 72.0;
-
-            else
-              // If we do this line, we are just trying to move further
-              // around the circle.
-              delta_angle = dir * (float) random(25, 45);
-
-            angle += delta_angle;
-
-            while (angle > 360.0)   // We probably do not need to keep the angle between 0 and 2*PI, but the
-              angle -= 360.0;       // Arduino documentation says the trig functions should not be given values
-            while (angle < 0.0)     // outside of this range.   It looks like they behave correctly with
-              angle += 360.0;       // numbers outside of the range, but just to be safe we clamp them.
-
-            X_current = X_probe_location - (X_PROBE_OFFSET_FROM_EXTRUDER) + cos(RADIANS(angle)) * radius;
-            Y_current = Y_probe_location - (Y_PROBE_OFFSET_FROM_EXTRUDER) + sin(RADIANS(angle)) * radius;
-
-            #if DISABLED(DELTA)
-              X_current = constrain(X_current, X_MIN_POS, X_MAX_POS);
-              Y_current = constrain(Y_current, Y_MIN_POS, Y_MAX_POS);
-            #else
-              // If we have gone out too far, we can do a simple fix and scale the numbers
-              // back in closer to the origin.
-              while (!position_is_reachable_by_probe(X_current, Y_current)) {
-                X_current *= 0.8;
-                Y_current *= 0.8;
-                #if DISABLED(SLIM_1284P)
-                  if (verbose_level > 3) {
-                    SERIAL_ECHOPAIR("Pulling point towards center:", X_current);
-                    SERIAL_ECHOLNPAIR(", ", Y_current);
-                  }
-                #endif
-              }
-            #endif
-            
-            #if DISABLED(SLIM_1284P)
-              if (verbose_level > 3) {
-                SERIAL_PROTOCOLPGM("Going to:");
-                SERIAL_ECHOPAIR(" X", X_current);
-                SERIAL_ECHOPAIR(" Y", Y_current);
-                SERIAL_ECHOLNPAIR(" Z", current_position[Z_AXIS]);
-              }
-            #endif
-            
-            do_blocking_move_to_xy(X_current, Y_current);
-          } // n_legs loop
-        } // n_legs
-
         // Probe a single point
         sample_set[n] = probe_pt(X_probe_location, Y_probe_location, raise_after);
 
@@ -10937,12 +10850,12 @@ inline void gcode_M502() {
       Max7219_Clear();
 
     if (parser.seen('F'))
-      for(uint8_t x = 0; x < MAX7219_X_LEDS; x++)
+      for (uint8_t x = 0; x < MAX7219_X_LEDS; x++)
         Max7219_Set_Column(x, 0xffffffff);
 
     if (parser.seenval('R')) {
       const uint32_t r = parser.value_int();
-      Max7219_Set_Row(r, parser.ulongval('V'));
+      Max7219_Set_Row(r, parser.byteval('V'));
       return;
     }
     else if (parser.seenval('C')) {
@@ -10960,7 +10873,7 @@ inline void gcode_M502() {
     }
 
     if (parser.seen('P')) {
-      for(uint8_t x = 0; x < (8*MAX7219_NUMBER_UNITS); x++) {
+      for (uint8_t x = 0; x < (8 * MAX7219_NUMBER_UNITS); x++) {
         SERIAL_ECHOPAIR("LEDs[", x);
         SERIAL_ECHOPAIR("]=", LEDs[x]);
         SERIAL_ECHO("\n");
@@ -12338,13 +12251,15 @@ void process_parsed_command() {
         #if ENABLED(SDCARD_SORT_ALPHA) && ENABLED(SDSORT_GCODE)
           case 34: gcode_M34(); break;                            // M34: Set SD card sorting options
         #endif
-        case 928: gcode_M928(); break;                            // M928: Start SD write
+        #if DISABLED(SLIM_1284P)
+		  case 928: gcode_M928(); break;                            // M928: Start SD write
+		#endif
       #endif // SDSUPPORT
 
       case 31: gcode_M31(); break;                                // M31: Report print job elapsed time
 
-      case 42: gcode_M42(); break;                                // M42: Change pin state
       #if ENABLED(PINS_DEBUGGING)
+		case 42: gcode_M42(); break;                              // M42: Change pin state
         case 43: gcode_M43(); break;                              // M43: Read/monitor pin and endstop states
       #endif
 
@@ -12371,7 +12286,9 @@ void process_parsed_command() {
 
       case 104: gcode_M104(); break;                              // M104: Set Hotend Temperature
       case 110: gcode_M110(); break;                              // M110: Set Current Line Number
-      case 111: gcode_M111(); break;                              // M111: Set Debug Flags
+	  #if DISABLED(SLIM_1284P)
+        case 111: gcode_M111(); break;                              // M111: Set Debug Flags
+	  #endif
 
       #if DISABLED(EMERGENCY_PARSER)
         case 108: gcode_M108(); break;                            // M108: Cancel Waiting
@@ -12379,13 +12296,13 @@ void process_parsed_command() {
         case 410: gcode_M410(); break;                            // M410: Quickstop. Abort all planned moves
       #endif
 
-      #if ENABLED(HOST_KEEPALIVE_FEATURE)
+      #if ENABLED(HOST_KEEPALIVE_FEATURE) && DISABLED(SLIM_1284P)
         case 113: gcode_M113(); break;                            // M113: Set Host Keepalive Interval
       #endif
 
       case 105: gcode_M105(); KEEPALIVE_STATE(NOT_BUSY); return;  // M105: Report Temperatures (and say "ok")
 
-      #if ENABLED(AUTO_REPORT_TEMPERATURES)
+      #if ENABLED(AUTO_REPORT_TEMPERATURES) && DISABLED(SLIM_1284P)
         case 155: gcode_M155(); break;                            // M155: Set Temperature Auto-report Interval
       #endif
 
@@ -12424,17 +12341,24 @@ void process_parsed_command() {
       case 82: gcode_M82(); break;                                // M82: Disable Relative E-Axis
       case 83: gcode_M83(); break;                                // M83: Set Relative E-Axis
       case 18: case 84: gcode_M18_M84(); break;                   // M18/M84: Disable Steppers / Set Timeout
-      case 85: gcode_M85(); break;                                // M85: Set inactivity stepper shutdown timeout
+
+	  #if DISABLED(SLIM_1284P)      
+ 		case 85: gcode_M85(); break;                              // M85: Set inactivity stepper shutdown timeout
+ 	  #endif
+
       case 92: gcode_M92(); break;                                // M92: Set steps-per-unit
       case 114: gcode_M114(); break;                              // M114: Report Current Position
       case 115: gcode_M115(); break;                              // M115: Capabilities Report
       case 117: gcode_M117(); break;                              // M117: Set LCD message text
       case 118: gcode_M118(); break;                              // M118: Print a message in the host console
       case 119: gcode_M119(); break;                              // M119: Report Endstop states
-      case 120: gcode_M120(); break;                              // M120: Enable Endstops
-      case 121: gcode_M121(); break;                              // M121: Disable Endstops
 
-      #if ENABLED(ULTIPANEL)
+	  #if DISABLED(SLIM_1284P)      
+	    case 120: gcode_M120(); break;                              // M120: Enable Endstops
+        case 121: gcode_M121(); break;                              // M121: Disable Endstops
+	  #endif
+
+      #if ENABLED(ULTIPANEL) && DISABLED(SLIM_1284P)
         case 145: gcode_M145(); break;                            // M145: Set material heatup parameters
       #endif
 
@@ -12468,7 +12392,7 @@ void process_parsed_command() {
       case 204: gcode_M204(); break;                              // M204: Set Acceleration
       case 205: gcode_M205(); break;                              // M205: Set Advanced settings
 
-      #if HAS_M206_COMMAND
+      #if HAS_M206_COMMAND && DISABLED(SLIM_1284P)
         case 206: gcode_M206(); break;                            // M206: Set Home Offsets
         case 428: gcode_M428(); break;                            // M428: Set Home Offsets based on current position
       #endif
@@ -12491,7 +12415,9 @@ void process_parsed_command() {
 
       case 220: gcode_M220(); break;                              // M220: Set Feedrate Percentage
       case 221: gcode_M221(); break;                              // M221: Set Flow Percentage
-      case 226: gcode_M226(); break;                              // M226: Wait for Pin State
+      #if DISABLED(SLIM_1284P)
+        case 226: gcode_M226(); break;                              // M226: Wait for Pin State
+      #endif
 
       #if defined(CHDK) || HAS_PHOTOGRAPH
         case 240: gcode_M240(); break;                            // M240: Trigger Camera
@@ -12579,7 +12505,7 @@ void process_parsed_command() {
       #if DISABLED(DISABLE_M503)
         case 503: gcode_M503(); break;                            // M503: Report Settings (in SRAM)
       #endif
-      #if ENABLED(EEPROM_SETTINGS) && DISABLED(SLIM_1284P)
+      #if ENABLED(EEPROM_SETTINGS)
         case 504: gcode_M504(); break;                            // M504: Validate EEPROM
       #endif
 
@@ -12605,7 +12531,7 @@ void process_parsed_command() {
         case 666: gcode_M666(); break;                            // M666: DELTA/Dual Endstop Adjustment
       #endif
 
-      #if ENABLED(FILAMENT_LOAD_UNLOAD_GCODES) && DISABLED(SLIM_1284P)
+      #if ENABLED(FILAMENT_LOAD_UNLOAD_GCODES)
         case 701: gcode_M701(); break;                            // M701: Load Filament
         case 702: gcode_M702(); break;                            // M702: Unload Filament
       #endif

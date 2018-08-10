@@ -58,11 +58,7 @@
 #ifdef IS_RAMPS_13
   #define SERVO0_PIN        7   // RAMPS_13 // Will conflict with BTN_EN2 on LCD_I2C_VIKI
 #else
-  #if ENABLED(IS_MKS_BOARD_ATX)
-    #define SERVO0_PIN       12
-  #else
-    #define SERVO0_PIN       11
-  #endif
+  #define SERVO0_PIN       11
 #endif
 #define SERVO1_PIN          6
 #define SERVO2_PIN          5
@@ -82,11 +78,7 @@
   #endif
 #endif
 #define Y_MIN_PIN          14
-#if ENABLED(TIM_AM8)
-  #define Y_MAX_PIN          -1
-#else
-  #define Y_MAX_PIN          15
-#endif
+#define Y_MAX_PIN          15
 #define Z_MIN_PIN          18
 #define Z_MAX_PIN          19
 
@@ -296,16 +288,8 @@
   #define FIL_RUNOUT_PIN      4
 #endif
 
-#if ENABLED(TIM_AM8)
-  #define FIL_RUNOUT2_PIN    15
-#endif
-
 #ifndef PS_ON_PIN
-  #if ENABLED(IS_MKS_BOARD_ATX)
-    #define PS_ON_PIN        11 
-  #else
-    #define PS_ON_PIN        12
-  #endif
+  #define PS_ON_PIN        12
 #endif
 
 #if ENABLED(CASE_LIGHT_ENABLE) && !defined(CASE_LIGHT_PIN) && !defined(SPINDLE_LASER_ENABLE_PIN)
