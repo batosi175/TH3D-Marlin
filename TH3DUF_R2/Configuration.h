@@ -420,7 +420,7 @@
 // Continue after Power-Loss feature will store the current state to the SD Card at the start of each layer
 // during SD printing. If the recovery file is found at boot time, present an option on the LCD screen to
 // continue the print from the last-known point in the file.
-// This will DISABLE Junction Deviation and S-Curve Acceleration due to RAM limitations. You can only use this with the older
+// This will DISABLE Junction Deviation,  S-Curve Acceleration, and/or Linear Advance due to RAM limitations. You can only use this with the older
 // jerk and acceleration features due to RAM limitations on the CPU.
 //
 // NOTE: This feature is UNSUPPORTED and causes excessive wear on your SD card. TH3D will NOT provide support for this
@@ -438,8 +438,6 @@
 
 // Linear Advance Pressure Control - This is provided for convenience and is unsupported with included product support.
 // See http://marlinfw.org/docs/features/lin_advance.html for full instructions.
-//
-// NOTE - If used on 1284p Boards w/ new accel and/or jerk this will disable M48 Probe test so fit on the board. If you need to test your EZABL disable LINEAR_ADVANCE and re-upload firmware to the printer.
 // Uncomment the below line to enable Linear Advance Pressure Control.
 //#define LINEAR_ADVANCE
 // Change the K Value here or use M900 KX.XX in your starting code (recommended).
@@ -469,7 +467,7 @@
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "TH3D U1.R2.T2"
-// LAST MODIFIED 080518 @ 1940 CST Marlin 1.1.9 Base
+#define UNIFIED_VERSION "TH3D U1.R2.T3"
+// LAST MODIFIED 080918 @ 2311 CST Marlin 1.1.9 Base
 
 #endif // CONFIGURATION_H
