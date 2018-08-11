@@ -139,7 +139,7 @@
   #define ULTIPANEL_FEEDMULTIPLY  
 #endif
 
-#define DEFAULT_MINSEGMENTTIME        50000
+#define DEFAULT_MINSEGMENTTIME        25000
 #define SLOWDOWN
 #define MINIMUM_PLANNER_SPEED 0.05
 
@@ -154,7 +154,7 @@
  * vibration and surface artifacts. The algorithm adapts to provide the best possible step smoothing at the
  * lowest stepping frequencies.
  */
-//#define ADAPTIVE_STEP_SMOOTHING
+//#define ADAPTIVE_STEP_SMOOTHING //test if helps slowdown 254 more bytes - no effect
 
 #define MICROSTEP_MODES {16,16,16,16,16} // [1,2,4,8,16]
 
@@ -247,11 +247,13 @@
 #endif
 
 #define MIN_STEPS_PER_SEGMENT 6
+//#define MIN_STEPS_PER_SEGMENT 5 //test if helps slowdown - no change
 
 #define BLOCK_BUFFER_SIZE 16
 #define MAX_CMD_SIZE 96
 #define BUFSIZE 4
 #define TX_BUFFER_SIZE 0
+//#define TX_BUFFER_SIZE 4 //test if helps slowdown - no change
 
 #define ADVANCED_PAUSE_FEATURE
 #if ENABLED(ADVANCED_PAUSE_FEATURE)
@@ -259,7 +261,11 @@
   #define PAUSE_PARK_RETRACT_LENGTH            2 
   #define FILAMENT_CHANGE_UNLOAD_FEEDRATE     10  
   #define FILAMENT_CHANGE_UNLOAD_ACCEL        25  
-  #define FILAMENT_CHANGE_UNLOAD_LENGTH      100  
+  #if ENABLED(DIRECT_DRIVE_PRINTER)
+    #define FILAMENT_CHANGE_UNLOAD_LENGTH      20  
+  #else
+    #define FILAMENT_CHANGE_UNLOAD_LENGTH      100
+  #endif
   #define FILAMENT_CHANGE_SLOW_LOAD_FEEDRATE   6  
   #define FILAMENT_CHANGE_SLOW_LOAD_LENGTH     0  
   #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE   6  

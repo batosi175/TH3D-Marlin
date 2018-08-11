@@ -2132,14 +2132,16 @@ void MarlinSettings::reset() {
     SERIAL_EOL();
 
     #if HAS_M206_COMMAND
-      if (!forReplay) {
+      #if DISABLED(SLIM_1284P)
+        if (!forReplay) {
+          CONFIG_ECHO_START;
+          SERIAL_ECHOLNPGM("Home offset:");
+        }
         CONFIG_ECHO_START;
-        SERIAL_ECHOLNPGM("Home offset:");
-      }
-      CONFIG_ECHO_START;
-      SERIAL_ECHOPAIR("  M206 X", LINEAR_UNIT(home_offset[X_AXIS]));
-      SERIAL_ECHOPAIR(" Y", LINEAR_UNIT(home_offset[Y_AXIS]));
-      SERIAL_ECHOLNPAIR(" Z", LINEAR_UNIT(home_offset[Z_AXIS]));
+        SERIAL_ECHOPAIR("  M206 X", LINEAR_UNIT(home_offset[X_AXIS]));
+        SERIAL_ECHOPAIR(" Y", LINEAR_UNIT(home_offset[Y_AXIS]));
+        SERIAL_ECHOLNPAIR(" Z", LINEAR_UNIT(home_offset[Z_AXIS]));
+      #endif
     #endif
 
     #if HOTENDS > 1
@@ -2287,7 +2289,7 @@ void MarlinSettings::reset() {
 
     #endif // [XYZ]_DUAL_ENDSTOPS
 
-    #if ENABLED(ULTIPANEL)
+    #if ENABLED(ULTIPANEL) && DISABLED(SLIM_1284P)
       if (!forReplay) {
         CONFIG_ECHO_START;
         SERIAL_ECHOLNPGM("Material heatup parameters:");
@@ -2623,7 +2625,7 @@ void MarlinSettings::reset() {
     /**
      * Advanced Pause filament load & unload lengths
      */
-    #if ENABLED(ADVANCED_PAUSE_FEATURE)
+    #if ENABLED(ADVANCED_PAUSE_FEATURE) && DISABLED(SLIM_1284P)
       if (!forReplay) {
         CONFIG_ECHO_START;
         SERIAL_ECHOLNPGM("Filament load/unload lengths:");

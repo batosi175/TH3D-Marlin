@@ -222,6 +222,7 @@
   #endif
   
   #define BAUDRATE 250000
+  #define DIRECT_DRIVE_PRINTER
 
   #define X_MIN_ENDSTOP_INVERTING true
   #define Y_MIN_ENDSTOP_INVERTING true
@@ -293,6 +294,8 @@
   #define LCD_HEIGHT 5
   #define LCD_RESET_PIN 5
   #define PCA9632
+  
+  #define DIRECT_DRIVE_PRINTER
   
   #define X_MIN_ENDSTOP_INVERTING true
   #define Y_MIN_ENDSTOP_INVERTING true
@@ -490,6 +493,8 @@
   #endif
   #define IS_WANHAO_DI3
 
+  #define DIRECT_DRIVE_PRINTER
+  
   #define X_MIN_ENDSTOP_INVERTING true
   #define Y_MIN_ENDSTOP_INVERTING true
   #define Z_MIN_ENDSTOP_INVERTING true
@@ -947,6 +952,8 @@
 #if ENABLED(TAZ5)
   #define BAUDRATE 250000
   #define V6_HOTEND
+  
+  #define DIRECT_DRIVE_PRINTER
 
   #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
 
@@ -1073,6 +1080,8 @@
       #define Y_MIN_POS 0
     #endif
     
+    #define DIRECT_DRIVE_PRINTER
+    
     #define X_BED_SIZE 220
     #define Y_BED_SIZE 220
     #define Z_MAX_POS 230
@@ -1101,6 +1110,8 @@
       #define Y_MIN_POS 0
     #endif
     
+    #define DIRECT_DRIVE_PRINTER
+    
     #define X_BED_SIZE 220
     #define Y_BED_SIZE 270
     #define Z_MAX_POS 230
@@ -1127,6 +1138,8 @@
       #define X_MIN_POS 0
       #define Y_MIN_POS 0
     #endif
+    
+    #define DIRECT_DRIVE_PRINTER
     
     #define X_BED_SIZE 220
     #define Y_BED_SIZE 220
@@ -1155,6 +1168,8 @@
      #define X_MIN_POS -33
      #define Y_MIN_POS -10
   #endif
+  
+  #define DIRECT_DRIVE_PRINTER
     
   #define X_BED_SIZE 220
   #define Y_BED_SIZE 220
@@ -1409,7 +1424,10 @@
   #endif	
 #endif
 
-#define PREVENT_COLD_EXTRUSION
+#if DISABLED(NO_COLD_PREVENT)
+  #define PREVENT_COLD_EXTRUSION
+#endif
+
 #define EXTRUDE_MINTEMP 120
 
 #define PREVENT_LENGTHY_EXTRUDE
