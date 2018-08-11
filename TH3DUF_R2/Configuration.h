@@ -20,6 +20,8 @@
 * Then select the COM port your printer is on from the Tools menu.
 * 
 * Once you have your settings click the arrow in the upper left to upload to the board.
+*
+* ANYTHING UNCOMMENTED BY DEFAULT IS SUPPOSED TO BE THAT WAY. DO NOT ASK SUPPORT ABOUT THIS OR DISABLED THEM.
 * 
 * Thats it! 
 * 
