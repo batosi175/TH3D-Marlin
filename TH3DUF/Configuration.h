@@ -395,10 +395,6 @@
 
 // MISC ------------------------------------
 
-// Experimental changes to help smooth out USB printing.
-// Read here for more details: http://lokspace.eu/bad-print-quality-with-usb-or-octoprint-the-solution-is-here/
-//#define USB_PRINT_FIX
-
 // If you are using the TH3D 5015 High Flow Layer Fan enable this to allow the firmware
 // to properly control the fan speed. If this is not enabled then the fan may not spin and/or make noise at low speeds.
 //#define FAN_KICKSTART
@@ -467,6 +463,6 @@
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "TH3D U1.R1.10"
+#define UNIFIED_VERSION "TH3D U1.R1.10a"
 
 #endif // CONFIGURATION_H
