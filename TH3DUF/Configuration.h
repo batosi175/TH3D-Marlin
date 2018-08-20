@@ -3,6 +3,10 @@
 *
 * Uncomment means removing the 2 // in front of #define.
 * 
+* ALL slicers (Simplify3D, Cura, Slic3r, etc) or anything else that connects to the COM port must be CLOSED for the firmware to be flash.
+* If anything is connected to the COM port when flashing it will fail, typically "access denied" is listed in the error section of the Arduino IDE.
+* You MUST use the Included Arduino IDE to flash the firmware if on Windows and if you are on a Mac or Linux follow the guide in our knowledgebase to setup your IDE to work with the firmware.
+* 
 * If you have EZABL uncomment the mount you are using with the printer. This is all that is needed now.
 * 
 * If you have a custom/unsupported mount uncomment #define CUSTOM_MOUNT
