@@ -3,6 +3,10 @@
 *
 * Uncomment means removing the 2 // in front of #define.
 * 
+* ALL slicers (Simplify3D, Cura, Slic3r, etc) or anything else that connects to the COM port must be CLOSED for the firmware to be flash.
+* If anything is connected to the COM port when flashing it will fail, typically "access denied" is listed in the error section of the Arduino IDE.
+* You MUST use the Included Arduino IDE to flash the firmware if on Windows and if you are on a Mac or Linux follow the guide in our knowledgebase to setup your IDE to work with the firmware.
+* 
 * If you have EZABL uncomment the mount you are using with the printer. This is all that is needed now.
 * 
 * If you have a custom/unsupported mount uncomment #define CUSTOM_MOUNT
@@ -55,6 +59,15 @@
 //#define TM3DAERO
 //#define TM3DAERO_EXTENDED
 //#define PETSFANG
+//#define CUSTOM_PROBE
+
+//===========================================================================
+// Geeetech A10 Options - Select Arduino Mega 2560 from Tools > Board
+//===========================================================================
+//#define GEEETECH_A10
+
+// EZABL Probe Mounts
+//#define A10_OEM
 //#define CUSTOM_PROBE
 
 //===========================================================================
@@ -395,10 +408,6 @@
 
 // MISC ------------------------------------
 
-// Experimental changes to help smooth out USB printing.
-// Read here for more details: http://lokspace.eu/bad-print-quality-with-usb-or-octoprint-the-solution-is-here/
-//#define USB_PRINT_FIX
-
 // If you are using the TH3D 5015 High Flow Layer Fan enable this to allow the firmware
 // to properly control the fan speed. If this is not enabled then the fan may not spin and/or make noise at low speeds.
 //#define FAN_KICKSTART
@@ -467,6 +476,6 @@
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "TH3D U1.R1.10"
+#define UNIFIED_VERSION "TH3D U1.R1.11"
 
 #endif // CONFIGURATION_H
