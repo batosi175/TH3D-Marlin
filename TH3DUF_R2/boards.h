@@ -107,6 +107,7 @@
 #define BOARD_CR10S             476   // Creality CR-10S Board
 #define	BOARD_ONEPLUS1_wanhao	511   // Wanhao i3 Mini Board
 #define BOARD_RAMPSPLUS2		512	  // Alfawise U10 RampsPlus2 Board
+#define BOARD_GT2650_REV_B      600   // Geeetech GT2560 Rev. B
 
 //
 // ATmega1281, ATmega2561

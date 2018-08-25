@@ -60,6 +60,15 @@
 //#define CUSTOM_PROBE
 
 //===========================================================================
+// Geeetech A10 Options - Select Arduino Mega 2560 from Tools > Board
+//===========================================================================
+//#define GEEETECH_A10
+
+// EZABL Probe Mounts
+//#define A10_OEM
+//#define CUSTOM_PROBE
+
+//===========================================================================
 // Creality CR-10 Options - Select Sanguino(1284P) from Tools > Board
 //===========================================================================
 //#define CR10
