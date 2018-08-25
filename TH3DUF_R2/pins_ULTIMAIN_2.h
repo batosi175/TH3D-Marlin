@@ -40,6 +40,10 @@
 #define DEFAULT_SOURCE_CODE_URL "https://github.com/Ultimaker/Marlin"
 #define BOARD_NAME              "Ultimaker 2.x"
 
+#if ENABLED(WANHAO_D6) && ENABLED(EZOUT_V2)
+  #define FIL_RUNOUT_PIN    69
+#endif
+
 //
 // Limit Switches
 //

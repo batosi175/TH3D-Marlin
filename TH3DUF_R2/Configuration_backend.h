@@ -1265,7 +1265,7 @@
   #endif
 #endif
 
-//END TH3D MAIN SETTINGS
+#define ENDSTOP_NOISE_FILTER
 
 #if ENABLED(SLIM_1284P)
   #define SLIM_LCD_MENUS

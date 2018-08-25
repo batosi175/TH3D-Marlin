@@ -469,7 +469,7 @@
 
 #include "Configuration_backend.h"
 
-#define UNIFIED_VERSION "TH3D U1.R2.T4"
-// LAST MODIFIED 081118 @ 0356 CST Marlin 1.1.9 Base
+#define UNIFIED_VERSION "TH3D U1.R2.T5"
+// LAST MODIFIED 082418 @ 2302 CST Marlin 1.1.9 Base
 
 #endif // CONFIGURATION_H
