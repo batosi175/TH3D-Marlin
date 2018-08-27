@@ -13,6 +13,11 @@
     #define DISABLE_BOOT
   #endif
 #endif
+#if ENABLED(A10_OEM)
+  #define X_PROBE_OFFSET_FROM_EXTRUDER -53
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER 3
+  #define EZABL_ENABLE
+#endif
 #if ENABLED(CR10_VOLCANO)
   #define X_PROBE_OFFSET_FROM_EXTRUDER 30
   #define Y_PROBE_OFFSET_FROM_EXTRUDER 12
@@ -676,8 +681,8 @@
   #endif
   
   #if ENABLED(ENDER3)
-    #define X_BED_SIZE 220
-    #define Y_BED_SIZE 220
+    #define X_BED_SIZE 235
+    #define Y_BED_SIZE 235
     #define Z_MAX_POS 250
   #endif
 
