@@ -37,7 +37,7 @@
   #define BOARD_NAME "GT2560 Rev.B"
 #endif
 
-#define DEFAULT_MACHINE_NAME    "GEEETECH2650"
+//#define DEFAULT_MACHINE_NAME    "GEEETECH2650"
 
 //
 // Servos

@@ -220,10 +220,11 @@
 //Geeetech A10 Settings
 #if ENABLED(GEEETECH_A10)
   #ifndef MOTHERBOARD
-    #define MOTHERBOARD BOARD_GT2650_B
+    #define MOTHERBOARD BOARD_GT2560_REV_B
   #endif
 
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
+  #define LCD2004
   #define BAUDRATE 250000
 
   #define X_MIN_ENDSTOP_INVERTING true
@@ -722,8 +723,8 @@
   #endif
   
   #if ENABLED(ENDER3)
-    #define X_BED_SIZE 220
-    #define Y_BED_SIZE 220
+    #define X_BED_SIZE 235
+    #define Y_BED_SIZE 235
     #define Z_MAX_POS 250
   #endif
 
