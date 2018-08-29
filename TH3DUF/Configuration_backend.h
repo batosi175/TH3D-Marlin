@@ -13,7 +13,7 @@
     #define DISABLE_BOOT
   #endif
 #endif
-#if ENABLED(A10_OEM)
+#if ENABLED(GEE_A10_OEM)
   #define X_PROBE_OFFSET_FROM_EXTRUDER -53
   #define Y_PROBE_OFFSET_FROM_EXTRUDER 3
   #define EZABL_ENABLE
@@ -33,11 +33,11 @@
   #define Y_PROBE_OFFSET_FROM_EXTRUDER -10
   #define EZABL_ENABLE
 #endif
-#if ENABLED(CR10_FANG)
-  #define X_PROBE_OFFSET_FROM_EXTRUDER 48
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER -11
-  #define EZABL_ENABLE
-#endif
+//#if ENABLED(CR10_FANG) //DISCONTINUED - SAGS TOO MUCH
+  //#define X_PROBE_OFFSET_FROM_EXTRUDER 48
+  //#define Y_PROBE_OFFSET_FROM_EXTRUDER -11
+  //#define EZABL_ENABLE
+//#endif
 #if ENABLED(TM3DAERO)
   #define X_PROBE_OFFSET_FROM_EXTRUDER -51
   #define Y_PROBE_OFFSET_FROM_EXTRUDER -7
@@ -113,6 +113,11 @@
   #define Y_PROBE_OFFSET_FROM_EXTRUDER -47
   #define EZABL_ENABLE
 #endif
+#if ENABLED(ALFAWISEU10_PETSFANG)
+  #define X_PROBE_OFFSET_FROM_EXTRUDER -48
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER -2
+  #define EZABL_ENABLE
+#endif
 #if ENABLED(ANET_OEM)
   #define EZABL_ENABLE
   #define DISABLE_BOOT
@@ -150,9 +155,9 @@
   #define DEFAULT_MAX_FEEDRATE          { 300, 300, 15, 50 }
   #define DEFAULT_MAX_ACCELERATION      { 2000, 2000, 200, 10000 }
 
-  #define DEFAULT_ACCELERATION          750    
+  #define DEFAULT_ACCELERATION          1000    
   #define DEFAULT_RETRACT_ACCELERATION  1500   
-  #define DEFAULT_TRAVEL_ACCELERATION   750    
+  #define DEFAULT_TRAVEL_ACCELERATION   1000    
   
   #define DEFAULT_XJERK                 10.0
   #define DEFAULT_YJERK                 10.0
@@ -194,6 +199,7 @@
   #endif
 
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
+  #define LCD2004
   #define BAUDRATE 250000
 
   #define X_MIN_ENDSTOP_INVERTING true
@@ -1368,12 +1374,12 @@
  #endif
 #endif
 
-#define TEMP_RESIDENCY_TIME 10  
+#define TEMP_RESIDENCY_TIME 5  
 #define TEMP_HYSTERESIS 3      
 #define TEMP_WINDOW     1      
 
-#define TEMP_BED_RESIDENCY_TIME 10 
-#define TEMP_BED_HYSTERESIS 3     
+#define TEMP_BED_RESIDENCY_TIME 5 
+#define TEMP_BED_HYSTERESIS 3
 #define TEMP_BED_WINDOW     1     
 
 #define HEATER_0_MINTEMP 5
@@ -1403,6 +1409,11 @@
   #define  DEFAULT_Kp 9.12
   #define  DEFAULT_Ki 0.41
   #define  DEFAULT_Kd 50.98
+#elif ENABLED(AR_EZ300)
+  // TH3D AR-EZ300 tuned @ 250C
+  #define DEFAULT_Kp 23.55
+  #define DEFAULT_Ki 1.82
+  #define DEFAULT_Kd 76.21
 #else  
   // Default Hotend PID
   #define  DEFAULT_Kp 22.2
@@ -1436,7 +1447,10 @@
   #endif	
 #endif
 
-#define PREVENT_COLD_EXTRUSION
+#if DISABLED(NO_COLD_PREVENT)
+  #define PREVENT_COLD_EXTRUSION
+#endif
+
 #define EXTRUDE_MINTEMP 120
 
 #define PREVENT_LENGTHY_EXTRUDE
@@ -1639,11 +1653,11 @@
   #define LEVEL_BED_CORNERS
 #endif
 
-#if DISABLED(ENDER2) || DISABLED(EZOUT_ENABLE) || DISABLED(WANHAO_I3)
+#if DISABLED(EZOUT_ENABLE) || DISABLED(SLIM_1284P)
   #define SPEAKER
 #endif
 
-#if ENABLED(FAN_KICKSTART)
+#if ENABLED(FAN_FIX)
   #define FAN_SOFT_PWM
   #define SOFT_PWM_SCALE 1
 #else
