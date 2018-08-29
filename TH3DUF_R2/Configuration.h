@@ -53,10 +53,9 @@
 //#define CR10_VOLCANO
 //#define CR10_V6HEAVYDUTY
 //#define CR10_OEM
-//#define CR10_FANG
 //#define TM3DAERO
 //#define TM3DAERO_EXTENDED
-//#define PETSFANG
+//#define PETSFANG //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
 //#define CUSTOM_PROBE
 
 //===========================================================================
@@ -65,7 +64,7 @@
 //#define GEEETECH_A10
 
 // EZABL Probe Mounts
-//#define A10_OEM
+//#define GEE_A10_OEM
 //#define CUSTOM_PROBE
 
 //===========================================================================
@@ -87,7 +86,7 @@
 //#define CR10_FANG
 //#define TM3DAERO
 //#define TM3DAERO_EXTENDED
-//#define PETSFANG
+//#define PETSFANG //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
 //#define CUSTOM_PROBE
 
 //===========================================================================
@@ -114,10 +113,9 @@
 //#define CR10_VOLCANO
 //#define CR10_V6HEAVYDUTY
 //#define CR10_OEM
-//#define CR10_FANG
 //#define TM3DAERO
 //#define TM3DAERO_EXTENDED
-//#define PETSFANG
+//#define PETSFANG  //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
 //#define CUSTOM_PROBE
 
 // Dual Extruder Options
@@ -145,10 +143,9 @@
 //#define CR10_VOLCANO
 //#define CR10_V6HEAVYDUTY
 //#define CR10_OEM
-//#define CR10_FANG
 //#define TM3DAERO
 //#define TM3DAERO_EXTENDED
-//#define PETSFANG
+//#define PETSFANG  //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
 //#define CUSTOM_PROBE
 
 //===========================================================================
@@ -164,10 +161,9 @@
 //#define CR10_VOLCANO
 //#define CR10_V6HEAVYDUTY
 //#define CR10_OEM
-//#define CR10_FANG
 //#define TM3DAERO
 //#define TM3DAERO_EXTENDED
-//#define PETSFANG
+//#define PETSFANG  //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
 //#define CUSTOM_PROBE
 
 //=================================================================================================
@@ -203,7 +199,7 @@
 //#define TORNADO_V6HEAVYDUTY
 //#define TM3DAERO
 //#define TM3DAERO_EXTENDED
-//#define PETSFANG
+//#define PETSFANG  //This is the RIGHT mounted version - if using the left mount please use the CUSTOM_PROBE option.
 //#define CUSTOM_PROBE
 
 // Use Tornado Bootscreen instead of TH3D
@@ -283,6 +279,7 @@
 
 // EZABL Probe Mounts
 //#define ALFAWISEU10_OEM
+//#define ALFAWISEU10_PETSFANG
 //#define CUSTOM_PROBE
 
 //===========================================================================
@@ -479,6 +476,5 @@
 #include "Configuration_backend.h"
 
 #define UNIFIED_VERSION "TH3D U1.R2.T5"
-// LAST MODIFIED 082418 @ 2302 CST Marlin 1.1.9 Base
 
 #endif // CONFIGURATION_H
